@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首代中国独立车机系统 | Siyang Suo</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <a href="../index.html#project-5" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background-color: #0a0a0a"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>Mercedes-Benz</span>
+                <span>300 / GLC / C-Class</span>
+                <span>中国市场</span>
+                <span>2025.02 — 至今</span>
+            </div>
+            <h1>首代中国独立车机系统</h1>
+            <p class="hero-desc">定义奔驰第一代中国地区独立的车机系统——在全车域能力开放下行代释放的产品定义与 AI/UX 设计。</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">背景</span>
+            <p class="section-subtitle">首代中国独立车机系统 — 300 / GLC / C-Class</p>
+            <div class="question-block">
+                <p>第一代中国独立车机——如何从零定义本土系统？</p>
+            </div>
+            <p>奔驰首次为中国市场打造独立的车机系统，不再依赖全球统一平台的本土化适配，而是<strong>从底层架构开始为中国用户量身定义</strong>。覆盖 300、GLC、C-Class 车型，面向直 30 年的产品生命周期。</p>
+            <p>核心挑战：在全车域能力开放的架构下，如何将下行代释放的能力转化为用户可感知的产品体验，同时保持品牌一致性？</p>
+        </div>
+
+        <div class="section">
+            <span class="section-label">设计方法</span>
+            <h2>全车域能力开放 × AI/UX 设计</h2>
+            <p>在全车域能力开放的技术架构下，定义产品的体验形态与交互框架：</p>
+            <ul class="approach-list">
+                <li>定义全车域能力开放下行代释放的产品定义与 AI/UX 设计</li>
+                <li>负责直 30 年模型设计——面向长周期的系统架构与体验演进规划</li>
+                <li>从零构建中国独立车机的交互范式，区别于全球平台的本土化方式</li>
+                <li>整合 AI 原生能力，打造符合中国用户使用习惯的智能座舱体验</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">设计细节</span>
+            <h2>本土独立 vs 全球适配</h2>
+            <p>不同于以往在全球平台基础上做本土化修改的方式，本项目是奔驰首次为中国市场<strong>从底层独立构建</strong>车机系统：</p>
+            <ul class="approach-list">
+                <li>独立的产品定义——不是翻译与裁剪，而是重新定义</li>
+                <li>AI 能力深度集成——语音、推荐、场景感知作为系统原生能力</li>
+                <li>面向中国生态——本土内容、服务、支付的原生接入</li>
+                <li>长周期演进——30 年模型需兼顾当下体验与未来扩展</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">交付物</span>
+            <h2>产出</h2>
+            <div class="deliverables">
+                <div class="deliverable-item">中国独立车机产品定义文档</div>
+                <div class="deliverable-item">AI/UX 交互框架与规范</div>
+                <div class="deliverable-item">全车域能力映射与体验设计</div>
+                <div class="deliverable-item">30 年模型设计规划</div>
+                <div class="deliverable-item">高保真交互原型</div>
+                <div class="deliverable-item">本土生态接入方案</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html#project-5">← 返回作品集</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroH = hero.offsetHeight;
+            if (scrollY <= heroH) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>

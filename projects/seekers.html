@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seekers — Project Manager | Siyang Suo</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <a href="../index.html#experience" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 100%)"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>Seekers</span>
+                <span>Beijing</span>
+                <span>2021.06 — 2021.09</span>
+            </div>
+            <h1>Project Manager</h1>
+            <p class="hero-desc">展厅设计与落地施工项目管理，统筹多方供应商交付。</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">Project</span>
+            <h2>JD Exhibition Hall Design & Construction</h2>
+            <p>负责京东展厅从概念设计到施工落地的全流程项目管理。协调设计团队、施工方、物料供应商等多方资源，在紧凑周期内保质交付。</p>
+            <ul class="approach-list">
+                <li>统筹 3 家供应商的进场时间与施工顺序</li>
+                <li>管控材料采购、质量验收与工期节点</li>
+                <li>协调甲方需求变更与设计方案迭代</li>
+                <li>按期交付，客户满意度高</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">Capabilities</span>
+            <h2>核心能力</h2>
+            <div class="deliverables">
+                <div class="deliverable-item">项目时间线管理</div>
+                <div class="deliverable-item">多方供应商协调</div>
+                <div class="deliverable-item">设计施工一体化管控</div>
+                <div class="deliverable-item">客户沟通与需求管理</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html#experience">← 返回经历</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroH = hero.offsetHeight;
+            if (scrollY <= heroH) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>

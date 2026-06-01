@@ -1,0 +1,335 @@
+/* ================================
+   PROJECT DETAIL PAGE
+   Helvetica Neue + PingFang SC, dark luxury theme
+   ================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #000000;
+    --bg-card: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #666666;
+    --border: rgba(255, 255, 255, 0.1);
+    --font: 'Helvetica Neue', 'PingFang SC', -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+/* ================================
+   HERO SECTION - Full bleed background
+   ================================ */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.92) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+    width: 100%;
+}
+
+.hero-back {
+    position: fixed;
+    top: 28px;
+    left: 40px;
+    z-index: 100;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.hero-back:hover {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-meta span {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    max-width: 700px;
+}
+
+.hero-desc {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 600px;
+    font-weight: 400;
+}
+
+/* Hero compact (non-image pages) */
+.hero-compact {
+    height: 60vh;
+    min-height: 400px;
+}
+
+/* ================================
+   CONTENT SECTIONS
+   ================================ */
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.section:last-child {
+    border-bottom: none;
+}
+
+.section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.section p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-weight: 400;
+    max-width: 680px;
+    margin-bottom: 16px;
+}
+
+.section p:last-child {
+    margin-bottom: 0;
+}
+
+.section p strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Question block */
+.question-block {
+    border-left: 3px solid rgba(255, 255, 255, 0.15);
+    padding-left: 32px;
+    margin: 32px 0;
+}
+
+.question-block p {
+    font-size: 28px;
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.5px;
+}
+
+/* Section subtitle (project name under question) */
+.section-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+/* Approach list */
+.approach-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.approach-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.approach-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+/* Project blocks (for multi-project pages) */
+.project-block {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+}
+
+.project-block h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.project-block p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Deliverables grid */
+.deliverables {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.deliverable-item {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 24px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Footer */
+.page-footer {
+    padding: 60px;
+    text-align: center;
+}
+
+.page-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.page-footer a:hover {
+    color: var(--text-primary);
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+@media (max-width: 1024px) {
+    .hero-content { padding: 0 40px 60px; }
+    .content { padding: 0 40px; }
+    .hero h1 { font-size: 36px; }
+}
+
+@media (max-width: 768px) {
+    .hero { min-height: 400px; height: 60vh; }
+    .hero-compact { height: 50vh; min-height: 320px; }
+    .hero h1 { font-size: 26px; }
+    .hero-desc { font-size: 15px; }
+    .hero-content { padding: 0 24px 48px; }
+    .hero-back { top: 16px; left: 16px; font-size: 13px; padding: 6px 12px; }
+    .hero-meta { gap: 12px; }
+    .hero-meta span { font-size: 10px; }
+    .content { padding: 0 24px; }
+    .section { padding: 48px 0; }
+    .section h2 { font-size: 22px; }
+    .section p { font-size: 14px; line-height: 1.8; }
+    .question-block { padding-left: 20px; }
+    .question-block p { font-size: 20px; }
+    .deliverables { grid-template-columns: 1fr; }
+    .approach-list li { font-size: 14px; }
+    .page-footer { padding: 40px 24px; }
+}
+
+@media (max-width: 390px) {
+    .hero h1 { font-size: 22px; }
+    .question-block p { font-size: 18px; }
+    .section h2 { font-size: 20px; }
+}

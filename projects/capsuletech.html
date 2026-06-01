@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapsuleTech — HMI Designer | Siyang Suo</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <a href="../index.html#experience" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>CapsuleTech</span>
+                <span>Shanghai</span>
+                <span>2022.03 — 2023.06</span>
+            </div>
+            <h1>Automobile HMI Designer</h1>
+            <p class="hero-desc">智能座舱人机交互设计，多模态多终端复杂场景设计及后续技术支持。</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">Overview</span>
+            <p>在 CapsuleTech 期间，主导多个汽车品牌的 HMI 项目，覆盖从概念设计到量产落地的全流程。核心挑战是在不同品牌调性下，为复杂的多模态交互场景找到<strong>一致且优雅</strong>的设计方案。</p>
+        </div>
+
+        <div class="section">
+            <span class="section-label">Projects</span>
+            <h2>项目经历</h2>
+
+            <div class="project-block">
+                <h3>BAIC Off-road Vehicle (B41V) HMI</h3>
+                <p>为北汽越野车定义全新座舱交互系统，针对越野场景设计差异化的信息架构与视觉语言。</p>
+            </div>
+
+            <div class="project-block">
+                <h3>Voice Personal Assistant — VUI Design</h3>
+                <p>设计语音个人助手的 VUI 系统，定义唤醒、对话、反馈的全链路语音交互体验。</p>
+            </div>
+
+            <div class="project-block">
+                <h3>BMW iDrive 9 HMI Demo</h3>
+                <p>为 BMW 新一代 iDrive 系统制作高保真概念演示，探索下一代座舱交互范式。</p>
+            </div>
+
+            <div class="project-block">
+                <h3>BMW Intelligent Personal Assistant</h3>
+                <p>定义 BMW 智能助手的交互人格与多模态响应策略，让 AI 助手具备品牌调性。</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="section-label">Capabilities</span>
+            <h2>核心能力</h2>
+            <div class="deliverables">
+                <div class="deliverable-item">多模态交互设计（语音+触控+手势）</div>
+                <div class="deliverable-item">高保真交互原型（ProtoPie / Figma）</div>
+                <div class="deliverable-item">VUI 对话流程设计</div>
+                <div class="deliverable-item">设计系统构建与维护</div>
+                <div class="deliverable-item">跨品牌设计语言适配</div>
+                <div class="deliverable-item">开发协作与技术对接</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html#experience">← 返回经历</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroH = hero.offsetHeight;
+            if (scrollY <= heroH) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>

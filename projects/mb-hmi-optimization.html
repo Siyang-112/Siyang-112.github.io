@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energizing 畅心醒神 | Siyang Suo</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <a href="../index.html#project-2" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background-color: #0a0a0a"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>Mercedes-Benz</span>
+                <span>S-Class / EQS / E-Class</span>
+                <span>全球平台</span>
+                <span>2023.07 — 至今</span>
+            </div>
+            <h1>Energizing 畅心醒神</h1>
+            <p class="hero-desc">开发自动舒缓疲劳的功能：座椅、音乐、氛围灯、座椅按摩等功能，给用户三态式的体验。</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">背景</span>
+            <p class="section-subtitle">Energizing 畅心醒神 — S-Class / EQS / E-Class · 全球</p>
+            <div class="question-block">
+                <p>车能感知你的状态，并在你开口之前做出回应吗？</p>
+            </div>
+            <p>驾驶过程中，用户的身心状态时刻变化——紧张、疲劳、愉悦、困倦。车辆拥有座椅、氛围灯、按摩、音乐等硬件能力，但它们各自独立运行，<strong>没有协同为用户身心恢复服务</strong>。</p>
+            <p>Energizing 的目标是将这些能力编排为统一的舒适体验，基于用户状态主动响应。</p>
+        </div>
+
+        <div class="section">
+            <span class="section-label">设计方法</span>
+            <h2>三态式体验 + 行为模型驱动</h2>
+            <p>设计 Energizing 核心功能体系，将座椅、音乐、氛围灯、座椅按摩等功能，<strong>通过行为模型统一编排</strong>，给用户三态式的体验（紧张/活跃/放松）。</p>
+            <ul class="approach-list">
+                <li>可以有不同的使用方式</li>
+                <li>根据用户当前心态进行排序：紧动/牛达/开心/放松/睡眠</li>
+                <li>首创和谐型输出</li>
+                <li>可以为本类用户提供个性体验</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">Vital Sensing</span>
+            <h2>生命体征感知</h2>
+            <p>通过车内的感知设备（心率监测、驾驶行为分析等），<strong>实时监测驾驶员状态</strong>，并将生命体征数据输入 Energizing 系统，分析驾驶员当前状态并匹配最优舒适方案。</p>
+            <ul class="approach-list">
+                <li>通过生命体征感知输入，手表心率辅助偶然数据输入，分析驾驶员当前状态</li>
+                <li>并且是每次行程中特定的项目</li>
+                <li>基于历史偏好、驾驶时段等数据推荐 Energizing Program</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">交付物</span>
+            <h2>产出</h2>
+            <div class="deliverables">
+                <div class="deliverable-item">Energizing 功能交互框架</div>
+                <div class="deliverable-item">三态式体验模型定义</div>
+                <div class="deliverable-item">Vital Sensing 交互规范</div>
+                <div class="deliverable-item">多感官编排逻辑文档</div>
+                <div class="deliverable-item">全球市场适配方案</div>
+                <div class="deliverable-item">高保真交互原型</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html#project-2">← 返回作品集</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroH = hero.offsetHeight;
+            if (scrollY <= heroH) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
