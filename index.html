@@ -7,8 +7,19 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="sclass_heightmap.js?t=20260604"></script>
+    <script src="eclass_heightmap.js?t=20260603b"></script>
+    <script src="van_hmap.js?t=20260604"></script>
+    <script src="glc_hmap.js?t=20260604"></script>
 </head>
 <body>
+    <div id="loader" style="position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s">
+        <div style="text-align:center;color:#b89a5a;font-family:system-ui,sans-serif">
+            <div style="width:40px;height:40px;border:2px solid #b89a5a33;border-top-color:#b89a5a;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px"></div>
+            <div style="font-size:13px;letter-spacing:2px;opacity:0.7">LOADING</div>
+        </div>
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
     <canvas id="terrainCanvas"></canvas>
     <nav class="site-nav">
         <div class="nav-inner">
@@ -405,10 +416,12 @@
         });
 
         // Tab switching
+        let currentTab = 'projects';
         const tabs = document.querySelectorAll('.nav-tab');
         const contents = document.querySelectorAll('.tab-content');
 
         function activateTab(target) {
+            currentTab = target;
             tabs.forEach(t => t.classList.remove('active'));
             document.querySelector(`[data-tab="${target}"]`).classList.add('active');
             contents.forEach(c => c.classList.remove('active'));
@@ -463,8 +476,8 @@
         // Index click navigation
         indexItems.forEach(item => {
             item.addEventListener('click', () => {
-                const idx = item.dataset.section;
-                sections[idx].scrollIntoView({ behavior: 'smooth' });
+                const idx = parseInt(item.dataset.section);
+                sections[idx].scrollIntoView({ behavior: 'instant' });
             });
         });
 
@@ -493,38 +506,268 @@
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 2.5, 6);
-        camera.lookAt(0, -0.5, 0);
+        camera.position.set(0, 0, 8);
+        camera.lookAt(0, 0, 0);
 
-        // Wireframe terrain
-        const geo = new THREE.PlaneGeometry(16, 10, 80, 50);
-        geo.rotateX(-Math.PI * 0.55);
+        // High density grid — oversized to never show edges when tilted
+        const geo = new THREE.PlaneGeometry(36, 36, 720, 720);
+        const vertCount = geo.attributes.position.count;
+        const colors = new Float32Array(vertCount * 3);
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         const mat = new THREE.MeshBasicMaterial({
-            color: 0xb8956a,
             wireframe: true,
             transparent: true,
-            opacity: 0.045
+            opacity: 1.0,
+            vertexColors: true
         });
         const terrain = new THREE.Mesh(geo, mat);
-        terrain.position.set(0, -1.8, -1);
         scene.add(terrain);
+
+        const basePositions = geo.attributes.position.array.slice();
+
+
+        // Mercedes-Benz three-pointed star logo
+        // Accurate geometry: thick circular ring + three narrow uniform spokes
+        // meeting at a small center hub, tips touching inner ring edge
+        // Top spoke points straight up (90°), others at 210° and 330°
+        const spokeAngles = [
+            Math.PI / 2,              // top (straight up)
+            Math.PI / 2 + Math.PI * 2 / 3,  // bottom-left (210°)
+            Math.PI / 2 + Math.PI * 4 / 3   // bottom-right (330°)
+        ];
+
+        function starHeight(px, py, cx, cy, r) {
+            const dx = px - cx, dy = py - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist > r * 1.05) return 0;
+
+            let maxH = 0;
+
+            // --- Outer ring: round cross-section, slightly thinner ---
+            const ringOuter = r;
+            const ringInner = r * 0.91;
+            const ringMid = (ringOuter + ringInner) / 2;
+            const ringHalfW = (ringOuter - ringInner) / 2;
+            if (dist >= ringInner && dist <= ringOuter) {
+                const t = Math.abs(dist - ringMid) / ringHalfW;
+                const profile = Math.sqrt(Math.max(0, 1 - t * t));
+                maxH = Math.max(maxH, profile * 0.45);
+            }
+
+            // --- Three cone-shaped spokes (extend into ring for seamless merge) ---
+            for (const sa of spokeAngles) {
+                const spokeDirX = Math.cos(sa);
+                const spokeDirY = Math.sin(sa);
+
+                const along = dx * spokeDirX + dy * spokeDirY;
+                const perp = Math.abs(dx * (-spokeDirY) + dy * spokeDirX);
+
+                // Spokes extend all the way to ringMid for smooth blend
+                if (along < 0 || along > ringMid) continue;
+
+                // t=0 at center, t=1 at ring mid
+                const t = along / ringMid;
+
+                // Cone width: wider at center, tapers to point
+                const maxHalfWidth = r * 0.18;
+                const currentHalfWidth = maxHalfWidth * (1 - t);
+
+                if (perp > currentHalfWidth || currentHalfWidth < 0.001) continue;
+
+                // Triangular cross-section (sharp ridge)
+                const crossT = perp / currentHalfWidth;
+                const crossProfile = 1 - crossT;
+
+                // Height: tallest at center, tapers down and blends into ring height at tip
+                const heightProfile = 1 - t * 0.7;
+
+                const spokeH = crossProfile * heightProfile * 0.95;
+                maxH = Math.max(maxH, spokeH);
+            }
+
+            return maxH;
+        }
+
+        // Single massive snow mountain in upper-right area
+        const mtn = { cx: 6, cy: 4, height: 12.0, radiusX: 14, radiusY: 14 };
+
+        function mountainHeight(px, py) {
+            const dx = (px - mtn.cx) / mtn.radiusX;
+            const dy = (py - mtn.cy) / mtn.radiusY;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d >= 1) return 0;
+
+            // Main peak — steep and tall
+            let h = Math.pow(1 - d, 2.2) * mtn.height;
+
+            // Ridge details
+            const ridge1 = Math.exp(-Math.pow((py - mtn.cy) - (px - mtn.cx) * 0.3, 2) * 0.3) * 0.5;
+            const ridge2 = Math.exp(-Math.pow((py - mtn.cy) + (px - mtn.cx) * 0.5, 2) * 0.2) * 0.3;
+            h += (ridge1 + ridge2) * (1 - d);
+
+            // Ski trail — sinuous groove carved into the slope
+            const t = (px - (mtn.cx - mtn.radiusX * 0.5)) / (mtn.radiusX * 1.0);
+            if (t > 0 && t < 1) {
+                const trailCenter = mtn.cy + Math.sin(t * Math.PI * 3.5) * 3.0 * t;
+                const distToTrail = Math.abs(py - trailCenter);
+                const trailWidth = 0.4 + t * 0.2;
+                if (distToTrail < trailWidth) {
+                    const carve = (1 - distToTrail / trailWidth);
+                    h -= carve * 0.6 * (1 - d) * Math.min(1, t * 3);
+                }
+            }
+
+            return Math.max(0, h);
+        }
+
+        // S-Class heightmap from depth-processed front face
+        const sCarCx = 0, sCarCy = 0;
+        const sClassMapW = 11.0, sClassMapH = 7.38; // 1200:805 aspect ratio preserved
+
+        function sClassHeight(px, py, cx, cy) {
+            const x = px - cx;
+            const y = py - cy;
+
+            const u = (x / sClassMapW + 0.5);
+            const v = (0.5 - y / sClassMapH); // flip Y
+
+            if (u <= 0 || u >= 1 || v <= 0 || v >= 1) return 0;
+
+            // Bilinear sample from pre-baked data
+            const fx = u * (sClassMap.w - 1);
+            const fy = v * (sClassMap.h - 1);
+            const ix = Math.floor(fx);
+            const iy = Math.floor(fy);
+            const dx = fx - ix;
+            const dy = fy - iy;
+            const ix1 = Math.min(ix + 1, sClassMap.w - 1);
+            const iy1 = Math.min(iy + 1, sClassMap.h - 1);
+
+            const v00 = sClassMap.data[iy * sClassMap.w + ix];
+            const v10 = sClassMap.data[iy * sClassMap.w + ix1];
+            const v01 = sClassMap.data[iy1 * sClassMap.w + ix];
+            const v11 = sClassMap.data[iy1 * sClassMap.w + ix1];
+
+            const val = v00 * (1-dx) * (1-dy) + v10 * dx * (1-dy)
+                      + v01 * (1-dx) * dy + v11 * dx * dy;
+
+            return val * 1.2;
+        }
+
+        // E-Class side profile heightmap
+        const eCarCx = 0, eCarCy = 0;
+        const eClassMapW = 11.0, eClassMapH = 6.13; // 1200:669 aspect centered
+
+        function eClassHeight(px, py, cx, cy) {
+            const x = px - cx;
+            const y = py - cy;
+            const u = (x / eClassMapW + 0.5);
+            const v = (0.5 - y / eClassMapH);
+            if (u <= 0 || u >= 1 || v <= 0 || v >= 1) return 0;
+            if (typeof eClassMap === 'undefined') return 0;
+
+            const fx = u * (eClassMap.w - 1);
+            const fy = v * (eClassMap.h - 1);
+            const ix = Math.floor(fx);
+            const iy = Math.floor(fy);
+            const dx = fx - ix;
+            const dy = fy - iy;
+            const ix1 = Math.min(ix + 1, eClassMap.w - 1);
+            const iy1 = Math.min(iy + 1, eClassMap.h - 1);
+
+            const v00 = eClassMap.data[iy * eClassMap.w + ix];
+            const v10 = eClassMap.data[iy * eClassMap.w + ix1];
+            const v01 = eClassMap.data[iy1 * eClassMap.w + ix];
+            const v11 = eClassMap.data[iy1 * eClassMap.w + ix1];
+
+            const val = v00 * (1-dx) * (1-dy) + v10 * dx * (1-dy)
+                      + v01 * (1-dx) * dy + v11 * dx * dy;
+            return val * 1.2;
+        }
+
+        // VAN side profile heightmap for section 04
+        const vanCarCx = 0, vanCarCy = 0;
+        const vanMapW = 11.0, vanMapH = 6.13; // 1200:669 aspect centered
+
+        function vanHeight(px, py, cx, cy) {
+            const x = px - cx;
+            const y = py - cy;
+
+            const u = (x / vanMapW + 0.5);
+            const v = (0.5 - y / vanMapH);
+
+            if (u <= 0 || u >= 1 || v <= 0 || v >= 1) return 0;
+
+            const fx = u * (vanMap.w - 1);
+            const fy = v * (vanMap.h - 1);
+            const ix = Math.floor(fx);
+            const iy = Math.floor(fy);
+            const dx = fx - ix;
+            const dy = fy - iy;
+            const ix1 = Math.min(ix + 1, vanMap.w - 1);
+            const iy1 = Math.min(iy + 1, vanMap.h - 1);
+
+            const v00 = vanMap.data[iy * vanMap.w + ix];
+            const v10 = vanMap.data[iy * vanMap.w + ix1];
+            const v01 = vanMap.data[iy1 * vanMap.w + ix];
+            const v11 = vanMap.data[iy1 * vanMap.w + ix1];
+
+            const val = v00 * (1-dx) * (1-dy) + v10 * dx * (1-dy)
+                      + v01 * (1-dx) * dy + v11 * dx * dy;
+
+            return val * 1.2;
+        }
+
+        // GLC interior heightmap for section 01
+        const glcCarCx = 0, glcCarCy = 0;
+        const glcMapW = 16.5, glcMapH = 9.2; // 1200:669 aspect, 85% of v3
+
+        function glcHeight(px, py, cx, cy) {
+            const x = px - cx;
+            const y = py - cy;
+
+            const u = (x / glcMapW + 0.5);
+            const v = (0.5 - y / glcMapH);
+
+            if (u <= 0 || u >= 1 || v <= 0 || v >= 1) return 0;
+
+            const fx = u * (glcMap.w - 1);
+            const fy = v * (glcMap.h - 1);
+            const ix = Math.floor(fx);
+            const iy = Math.floor(fy);
+            const dx = fx - ix;
+            const dy = fy - iy;
+            const ix1 = Math.min(ix + 1, glcMap.w - 1);
+            const iy1 = Math.min(iy + 1, glcMap.h - 1);
+
+            const v00 = glcMap.data[iy * glcMap.w + ix];
+            const v10 = glcMap.data[iy * glcMap.w + ix1];
+            const v01 = glcMap.data[iy1 * glcMap.w + ix];
+            const v11 = glcMap.data[iy1 * glcMap.w + ix1];
+
+            const val = v00 * (1-dx) * (1-dy) + v10 * dx * (1-dy)
+                      + v01 * (1-dx) * dy + v11 * dx * dy;
+
+            return val * 1.2;
+        }
 
         // Floating particles
         const particleCount = 60;
         const pGeo = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
+        const pPositions = new Float32Array(particleCount * 3);
         const velocities = [];
         for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * 14;
-            positions[i * 3 + 1] = Math.random() * 4 - 1;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+            pPositions[i * 3] = (Math.random() - 0.5) * 14;
+            pPositions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+            pPositions[i * 3 + 2] = (Math.random() - 0.5) * 6;
             velocities.push({
                 x: (Math.random() - 0.5) * 0.002,
                 y: (Math.random() - 0.5) * 0.001,
                 z: (Math.random() - 0.5) * 0.001
             });
         }
-        pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
         const pMat = new THREE.PointsMaterial({
             color: 0xd4b896,
             size: 0.015,
@@ -536,53 +779,343 @@
         scene.add(particles);
 
         // Scroll state
-        let scrollProgress = 0;
+        let sectionProgress = 0;
+        let sectionTarget = 0;
+        let energyTime = 0;
+        let wasInEnergy = false;
+        let modelGrow = 1;
+        let lastSection = 0;
+        const E_LOOP = Math.PI * 2;
         const fullpageWrapper = document.getElementById('fullpageWrapper');
         fullpageWrapper.addEventListener('scroll', () => {
-            const max = fullpageWrapper.scrollHeight - fullpageWrapper.clientHeight;
-            scrollProgress = max > 0 ? fullpageWrapper.scrollTop / max : 0;
+            const sectionH = fullpageWrapper.clientHeight;
+            sectionTarget = sectionH > 0 ? fullpageWrapper.scrollTop / sectionH : 0;
         });
 
-        // Animation
+        // Energy ribbon constants (thin smooth ribbons)
+        const E_COS1 = 0.995, E_SIN1 = 0.0998;
+        const E_COS2 = 0.9928, E_SIN2 = -0.1197;
+        const E_COS3 = 0.9982, E_SIN3 = 0.05996;
+        const E_WIDTH = 0.3;
+        const E_CUTOFF = E_WIDTH * 2.5;
+        const E_FALLOFF = 1 / (E_WIDTH * E_WIDTH);
+
+        // Section orientations — gentle tilts to keep grid filling viewport
+        const sectionStates = [
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: -0.25, ry: 0.1, rz: 0 },
+            { rx: -0.35, ry: 0.15, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+        ];
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        // Logo params — shifted to the right
+        const logoRadius = 1.8;
+        const logoCx = 3.2;
+        const logoCy = 0;
+        const elevationHeight = 0.6;
+        const baseR = 0.72, baseG = 0.58, baseB = 0.42;
+        const baseBrightness = 0.18;
+
+        // Grow-in animation: logo emerges over first 2 seconds
+        let growProgress = 0;
+        const growDuration = 2.0;
+
+        // Smooth transition between tabs — two phases: rotate then grow
+        let mountainRotate = 0;
+        let mountainGrow = 0;
+
         let time = 0;
-        function animate() {
+        let lastTimestamp = performance.now();
+
+        function animate(now) {
             requestAnimationFrame(animate);
+            const dt = (now - lastTimestamp) / 1000;
+            lastTimestamp = now;
             time += 0.003;
 
-            // Animate terrain vertices
+            // Grow animation
+            if (growProgress < 1) {
+                growProgress = Math.min(1, growProgress + dt / growDuration);
+            }
+            // Eased grow
+            const grow = growProgress * growProgress * (3 - 2 * growProgress);
+
+            // Two-phase animation: rotate first, then grow mountain
+            const isAbout = currentTab === 'about' ? 1 : 0;
+            // Phase 1: rotation (fast)
+            mountainRotate += (isAbout - mountainRotate) * Math.min(1, dt * 3.0);
+            // Phase 2: mountain grows only after rotation mostly done
+            const growTarget = (isAbout && mountainRotate > 0.7) ? 1 : 0;
+            mountainGrow += (growTarget - mountainGrow) * Math.min(1, dt * 2.0);
+
+            // Section progress follows scroll directly
+            sectionProgress = sectionTarget;
+
+            // Model grow: reset on section change, linear rise
+            const currentSection = Math.round(sectionProgress);
+            if (currentSection !== lastSection) {
+                modelGrow = 0;
+                lastSection = currentSection;
+            }
+            if (modelGrow < 1) {
+                modelGrow = Math.min(1, modelGrow + dt * 2.0);
+            }
+
+            const currentIdx = Math.min(Math.floor(sectionProgress), sectionStates.length - 1);
+            const nextIdx = Math.min(currentIdx + 1, sectionStates.length - 1);
+            const frac = sectionProgress - currentIdx;
+            const t = frac * frac * (3 - 2 * frac);
+
+            const fromState = sectionStates[currentIdx];
+            const toState = sectionStates[nextIdx];
+            // 90° side view with grid pushed down so camera is above
+            const mtnRx = -1.5;
+            const mtnRy = 0.05;
+            const mtnRz = 0;
+            const targetRx = lerp(fromState.rx, toState.rx, t);
+            const targetRy = lerp(fromState.ry, toState.ry, t);
+            const targetRz = lerp(fromState.rz, toState.rz, t);
+            terrain.rotation.x = lerp(targetRx, mtnRx, mountainRotate);
+            terrain.rotation.y = lerp(targetRy, mtnRy, mountainRotate);
+            terrain.rotation.z = lerp(targetRz, mtnRz, mountainRotate);
+            // Push grid down so camera stays above when tilted 90°
+            terrain.position.y = lerp(0, -4, mountainRotate);
+
+            // Logo fades as user scrolls away or switches tab
+            const logoStrength = Math.max(0, 1 - sectionProgress * 1.8) * grow * (1 - mountainRotate);
+
+            // GLC interior appears at section 1
+            const glcTarget = Math.max(0, 1 - Math.abs(sectionProgress - 1) * 1.8);
+            const glcStrength = glcTarget * modelGrow * (1 - mountainRotate);
+
+            // Energy flow appears at section 2 — loops from pre-computed data
+            const energyTarget = Math.max(0, 1 - Math.abs(sectionProgress - 2) * 1.8);
+            const energyStrength = energyTarget * modelGrow * (1 - mountainRotate);
+            const inEnergy = energyStrength > 0.01;
+            wasInEnergy = inEnergy;
+            if (inEnergy) energyTime = (energyTime + dt * 0.7) % E_LOOP;
+
+            // S-Class appears at section 3, fades in/out smoothly
+            const sClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 3) * 2.5);
+            const sClassStrength = sClassTarget * modelGrow * (1 - mountainRotate);
+
+            // VAN side profile appears at section 4
+            const vanTarget = Math.max(0, 1 - Math.abs(sectionProgress - 4) * 1.8);
+            const vanStrength = vanTarget * modelGrow * (1 - mountainRotate);
+
+            // E-Class side profile appears at section 5 (last project)
+            const eClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 5) * 1.8);
+            const eClassStrength = eClassTarget * modelGrow * (1 - mountainRotate);
+
+            // Pre-compute energy per-frame values (integer speeds for seamless loop)
+            let eWaveOff1 = 0, eWaveOff2 = 0, eWaveOff3 = 0;
+            let ePathOff1 = 0, ePathOff2 = 0, ePathOff3 = 0;
+            if (inEnergy) {
+                const et = energyTime;
+                eWaveOff1 = et * 2;
+                eWaveOff2 = et * 1;
+                eWaveOff3 = et * 1;
+                ePathOff1 = et * 1;
+                ePathOff2 = et * 1;
+                ePathOff3 = et * 1;
+            }
+
             const pos = geo.attributes.position;
-            for (let i = 0; i < pos.count; i++) {
-                const x = pos.getX(i);
-                const z = pos.getZ(i);
-                const wave = Math.sin(x * 0.3 + time * 0.8) * Math.cos(z * 0.4 + time * 0.6);
-                const amplitude = 0.15 + scrollProgress * 0.1;
-                pos.setY(i, wave * amplitude);
+            const col = geo.attributes.color;
+            const doLogo = logoStrength > 0.01;
+            const doGlc = glcStrength > 0.01 && typeof glcMap !== 'undefined';
+            const doEnergy = energyStrength > 0.01;
+            const doSClass = sClassStrength > 0.01;
+            const doVan = vanStrength > 0.01 && typeof vanMap !== 'undefined';
+            const doEClass = eClassStrength > 0.01 && typeof eClassMap !== 'undefined';
+            const doMtn = mountainGrow > 0.01;
+            const pulse = 1 + Math.sin(time * 1.2) * 0.08;
+
+            for (let i = 0; i < vertCount; i++) {
+                const bx = basePositions[i * 3];
+                const by = basePositions[i * 3 + 1];
+
+                let totalZ = 0;
+                let brightness = baseBrightness;
+
+                // Logo
+                if (doLogo) {
+                    const h = starHeight(bx, by, logoCx, logoCy, logoRadius);
+                    if (h > 0) {
+                        totalZ += h * elevationHeight * logoStrength * pulse;
+                        brightness += h * 0.35 * logoStrength * pulse;
+                    }
+                }
+
+                // GLC interior
+                if (doGlc) {
+                    const gc = glcHeight(bx, by, glcCarCx, glcCarCy);
+                    if (gc > 0) {
+                        totalZ += gc * 0.5 * glcStrength;
+                        brightness += gc * 0.2 * glcStrength;
+                    }
+                }
+
+                // Energy flow — smooth thin ribbons
+                if (doEnergy) {
+                    let flow = 0;
+                    const across1 = -bx * E_SIN1 + by * E_COS1;
+                    const along1 = bx * E_COS1 + by * E_SIN1;
+                    const p1 = Math.sin(along1 * 0.05 + ePathOff1) * 2.0;
+                    const d1 = across1 - p1;
+                    if (d1 > -E_CUTOFF && d1 < E_CUTOFF) {
+                        const e1 = Math.exp(-d1 * d1 * E_FALLOFF);
+                        flow += e1 * Math.sin(along1 * 0.2 + eWaveOff1) * 0.5;
+                    }
+                    const across2 = -bx * E_SIN2 + by * E_COS2;
+                    const along2 = bx * E_COS2 + by * E_SIN2;
+                    const p2 = Math.sin(along2 * 0.06 - ePathOff2) * 1.8 - 2.8;
+                    const d2 = across2 - p2;
+                    if (d2 > -E_CUTOFF && d2 < E_CUTOFF) {
+                        const e2 = Math.exp(-d2 * d2 * E_FALLOFF);
+                        flow += e2 * Math.sin(along2 * 0.25 + eWaveOff2) * 0.4;
+                    }
+                    const across3 = -bx * E_SIN3 + by * E_COS3;
+                    const along3 = bx * E_COS3 + by * E_SIN3;
+                    const p3 = Math.sin(along3 * 0.055 + ePathOff3 + 2.5) * 1.5 + 3.2;
+                    const d3 = across3 - p3;
+                    if (d3 > -E_CUTOFF && d3 < E_CUTOFF) {
+                        const e3 = Math.exp(-d3 * d3 * E_FALLOFF);
+                        flow += e3 * Math.sin(along3 * 0.18 + eWaveOff3) * 0.35;
+                    }
+                    if (flow !== 0) {
+                        totalZ += flow * energyStrength;
+                        if (flow > 0.03) brightness += flow * 0.35 * energyStrength;
+                    }
+                }
+
+                // S-Class
+                if (doSClass) {
+                    const sc = sClassHeight(bx, by, sCarCx, sCarCy);
+                    if (sc > 0) {
+                        totalZ += sc * 0.5 * sClassStrength;
+                        brightness += sc * 0.2 * sClassStrength;
+                    }
+                }
+
+                // VAN
+                if (doVan) {
+                    const vc = vanHeight(bx, by, vanCarCx, vanCarCy);
+                    if (vc > 0) {
+                        totalZ += vc * 0.5 * vanStrength;
+                        brightness += vc * 0.2 * vanStrength;
+                    }
+                }
+
+                // E-Class
+                if (doEClass) {
+                    const ec = eClassHeight(bx, by, eCarCx, eCarCy);
+                    if (ec > 0) {
+                        totalZ += ec * 0.5 * eClassStrength;
+                        brightness += ec * 0.2 * eClassStrength;
+                    }
+                }
+
+                // Mountains
+                if (doMtn) {
+                    const mtnH = mountainHeight(bx, by);
+                    if (mtnH > 0) {
+                        totalZ += mtnH * mountainGrow * 0.5;
+                        brightness += mtnH * 0.12 * mountainGrow;
+                    }
+                }
+
+                // Subtle ambient wave
+                totalZ += Math.sin(bx * 0.25 + time * 0.6) * Math.cos(by * 0.25 + time * 0.5) * 0.03;
+
+                pos.setZ(i, totalZ);
+                col.setXYZ(i, baseR * brightness, baseG * brightness, baseB * brightness);
             }
             pos.needsUpdate = true;
+            col.needsUpdate = true;
 
-            // Animate particles
+            // Particles
             const pPos = pGeo.attributes.position;
             for (let i = 0; i < particleCount; i++) {
                 const v = velocities[i];
                 pPos.array[i * 3] += v.x;
                 pPos.array[i * 3 + 1] += v.y + Math.sin(time + i) * 0.0003;
                 pPos.array[i * 3 + 2] += v.z;
-                // Wrap around
                 if (Math.abs(pPos.array[i * 3]) > 7) v.x *= -1;
-                if (pPos.array[i * 3 + 1] > 3 || pPos.array[i * 3 + 1] < -1.5) v.y *= -1;
-                if (Math.abs(pPos.array[i * 3 + 2]) > 4) v.z *= -1;
+                if (Math.abs(pPos.array[i * 3 + 1]) > 5) v.y *= -1;
+                if (Math.abs(pPos.array[i * 3 + 2]) > 3) v.z *= -1;
             }
             pPos.needsUpdate = true;
 
-            // Subtle camera sway based on scroll
-            camera.position.y = 2.5 - scrollProgress * 0.8;
-            camera.rotation.x = -0.35 + scrollProgress * 0.05;
-
             renderer.render(scene, camera);
         }
-        animate();
+        // Warmup: run all code paths to JIT-compile before first visible frame
+        (function warmup() {
+            const pos = geo.attributes.position;
+            const col = geo.attributes.color;
+            for (let i = 0; i < vertCount; i++) {
+                const bx = basePositions[i * 3];
+                const by = basePositions[i * 3 + 1];
+                let z = 0, br = baseBrightness;
 
-        // Resize
+                // Logo path
+                const h = starHeight(bx, by, logoCx, logoCy, logoRadius);
+                if (h > 0) { z += h * 0.3; br += h * 0.2; }
+
+                // Heightmap paths
+                if (typeof glcMap !== 'undefined') {
+                    const gc = glcHeight(bx, by, 0, 0);
+                    if (gc > 0) { z += gc * 0.1; br += gc * 0.1; }
+                }
+                if (typeof sClassMap !== 'undefined') {
+                    const sc = sClassHeight(bx, by, 0, 0);
+                    if (sc > 0) { z += sc * 0.1; }
+                }
+                if (typeof vanMap !== 'undefined') {
+                    const vc = vanHeight(bx, by, 0, 0);
+                    if (vc > 0) { z += vc * 0.1; }
+                }
+                if (typeof eClassMap !== 'undefined') {
+                    const ec = eClassHeight(bx, by, 0, 0);
+                    if (ec > 0) { z += ec * 0.1; }
+                }
+
+                // Energy path
+                const across1 = -bx * E_SIN1 + by * E_COS1;
+                const along1 = bx * E_COS1 + by * E_SIN1;
+                const d1 = across1 - Math.sin(along1 * 0.05) * 2.0;
+                if (d1 > -E_CUTOFF && d1 < E_CUTOFF) {
+                    z += Math.exp(-d1 * d1 * E_FALLOFF) * Math.sin(along1 * 0.2) * 0.1;
+                }
+                const across2 = -bx * E_SIN2 + by * E_COS2;
+                const along2 = bx * E_COS2 + by * E_SIN2;
+                const d2 = across2 - Math.sin(along2 * 0.06) * 1.8 + 2.8;
+                if (d2 > -E_CUTOFF && d2 < E_CUTOFF) {
+                    z += Math.exp(-d2 * d2 * E_FALLOFF) * Math.sin(along2 * 0.25) * 0.1;
+                }
+
+                // Mountain path
+                const mh = mountainHeight(bx, by);
+                if (mh > 0) z += mh * 0.1;
+
+                pos.setZ(i, 0);
+                col.setXYZ(i, baseR * baseBrightness, baseG * baseBrightness, baseB * baseBrightness);
+            }
+            pos.needsUpdate = true;
+            col.needsUpdate = true;
+            renderer.render(scene, camera);
+        })();
+
+        // Hide loader and start animation
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 600);
+        requestAnimationFrame(animate);
+
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
