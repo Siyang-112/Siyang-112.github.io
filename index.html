@@ -7,10 +7,30 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="sclass_heightmap.js?t=20260604"></script>
-    <script src="eclass_heightmap.js?t=20260603b"></script>
-    <script src="van_hmap.js?t=20260604"></script>
-    <script src="glc_hmap.js?t=20260604"></script>
+    <script>
+    function decodeHeightmap(obj) {
+        const bin = atob(obj.b64);
+        const data = new Float32Array(bin.length);
+        for (let i = 0; i < bin.length; i++) data[i] = bin.charCodeAt(i) / 255;
+        obj.data = data;
+        delete obj.b64;
+    }
+    var sClassMap, eClassMap, vanMap, glcMap;
+    var hmapsLoaded = new Promise(function(resolve) {
+        var loaded = 0, total = 4;
+        function check() { if (++loaded === total) resolve(); }
+        function loadHmap(url, cb) {
+            var s = document.createElement('script');
+            s.src = url;
+            s.onload = function() { cb(); check(); };
+            document.head.appendChild(s);
+        }
+        loadHmap('sclass_heightmap_b64.js?t=20260605', function(){ decodeHeightmap(sClassMap); });
+        loadHmap('eclass_heightmap_b64.js?t=20260605', function(){ decodeHeightmap(eClassMap); });
+        loadHmap('van_hmap_b64.js?t=20260605', function(){ decodeHeightmap(vanMap); });
+        loadHmap('glc_hmap_b64.js?t=20260605', function(){ decodeHeightmap(glcMap); });
+    });
+    </script>
 </head>
 <body>
     <div id="loader" style="position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s">
@@ -498,7 +518,7 @@
     </script>
 
     <script>
-    (function() {
+    hmapsLoaded.then(function() {
         const canvas = document.getElementById('terrainCanvas');
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1121,7 +1141,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-    })();
+    });
     </script>
 </body>
 </html>
