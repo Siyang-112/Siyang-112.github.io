@@ -6,7 +6,6 @@
     <title>Siyang Suo — HMI Designer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
     function decodeHeightmap(obj) {
         const bin = atob(obj.b64);
@@ -16,20 +15,21 @@
         delete obj.b64;
     }
     var sClassMap, eClassMap, vanMap, glcMap;
-    var hmapsLoaded = new Promise(function(resolve) {
-        var loaded = 0, total = 4;
-        function check() { if (++loaded === total) resolve(); }
-        function loadHmap(url, cb) {
+    function loadScript(url) {
+        return new Promise(function(resolve) {
             var s = document.createElement('script');
             s.src = url;
-            s.onload = function() { cb(); check(); };
+            s.onload = resolve;
             document.head.appendChild(s);
-        }
-        loadHmap('sclass_heightmap_b64.js?t=20260605', function(){ decodeHeightmap(sClassMap); });
-        loadHmap('eclass_heightmap_b64.js?t=20260605', function(){ decodeHeightmap(eClassMap); });
-        loadHmap('van_hmap_b64.js?t=20260605', function(){ decodeHeightmap(vanMap); });
-        loadHmap('glc_hmap_b64.js?t=20260605', function(){ decodeHeightmap(glcMap); });
-    });
+        });
+    }
+    var allReady = Promise.all([
+        loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'),
+        loadScript('sclass_heightmap_b64.js?t=20260605').then(function(){ decodeHeightmap(sClassMap); }),
+        loadScript('eclass_heightmap_b64.js?t=20260605').then(function(){ decodeHeightmap(eClassMap); }),
+        loadScript('van_hmap_b64.js?t=20260605').then(function(){ decodeHeightmap(vanMap); }),
+        loadScript('glc_hmap_b64.js?t=20260605').then(function(){ decodeHeightmap(glcMap); }),
+    ]);
     </script>
 </head>
 <body>
@@ -518,7 +518,7 @@
     </script>
 
     <script>
-    hmapsLoaded.then(function() {
+    allReady.then(function() {
         const canvas = document.getElementById('terrainCanvas');
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
