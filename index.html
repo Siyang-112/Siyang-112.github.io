@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siyang Suo — HMI Designer</title>
+    <title>SIYANG SUO — HMI Designer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
     <script>
@@ -110,7 +110,7 @@
                 <section class="fullpage-section hero-section" data-index="0">
                     <div class="section-inner">
                         <p class="header-label" data-i18n="hero_label">梅赛德斯-奔驰 · 高级 HMI 设计师 · 北京</p>
-                        <h1 class="hero-title">Siyang Suo</h1>
+                        <h1 class="hero-title">SIYANG SUO</h1>
                         <p class="hero-statement" data-i18n="hero_desc">7年汽车、智驾、交互、前沿科技与产品设计及项目管理经验。擅长分析数据与用户痛点获取行业洞察，带领团队利用多种工具将创意可视化。</p>
                         <p class="hero-statement hero-statement-cn">儿时的好奇，开启了不竭的求知，入海则无涯；七载的履历，托依着前行的砥砺，迎难却不退；未来的擘划，谱写在自身的足下，实地载脚踏。</p>
                     </div>
@@ -282,7 +282,7 @@
         <!-- TAB 3: 关于 -->
         <main class="tab-content" id="tab-about">
             <header class="page-header about-header">
-                <h1 class="hero-title" style="font-size:56px;">Siyang Suo</h1>
+                <h1 class="hero-title" style="font-size:56px;">SIYANG SUO</h1>
                 <p class="about-subtitle" data-i18n="about_subtitle">高级 HMI 设计师 & 项目经理</p>
                 <p class="header-desc" data-i18n="about_desc">7年汽车、智驾、交互、前沿科技与产品设计及项目管理经验。擅长分析数据与用户痛点获取行业洞察，带领团队利用多种工具将创意可视化。</p>
             </header>
@@ -525,7 +525,9 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        const aspect = window.innerWidth / window.innerHeight;
+        const fov = aspect < 0.7 ? 75 : aspect < 1 ? 65 : 50;
+        const camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 100);
         camera.position.set(0, 0, 8);
         camera.lookAt(0, 0, 0);
 
@@ -544,6 +546,24 @@
         scene.add(terrain);
 
         const basePositions = geo.attributes.position.array.slice();
+
+        // Medium-res mesh for About page (mountain)
+        const geoLo = new THREE.PlaneGeometry(36, 36, 360, 360);
+        const vertCountLo = geoLo.attributes.position.count;
+        const colorsLo = new Float32Array(vertCountLo * 3);
+        geoLo.setAttribute('color', new THREE.BufferAttribute(colorsLo, 3));
+        const terrainLo = new THREE.Mesh(geoLo, mat);
+        terrainLo.visible = false;
+        scene.add(terrainLo);
+        const basePositionsLo = geoLo.attributes.position.array.slice();
+
+        // Mobile scaling — shrink mesh+model to fit narrow screens
+        function applyMobileScale(a) {
+            const s = a < 0.7 ? 0.6 : a < 1 ? 0.8 : 1.0;
+            terrain.scale.set(s, s, s);
+            terrainLo.scale.set(s, s, s);
+        }
+        applyMobileScale(aspect);
 
 
         // Mercedes-Benz three-pointed star logo
@@ -609,36 +629,39 @@
             return maxH;
         }
 
-        // Single massive snow mountain in upper-right area
-        const mtn = { cx: 6, cy: 4, height: 12.0, radiusX: 14, radiusY: 14 };
+        // Mountain range — layered peaks for depth
+        const mtn = { cx: 6, cy: 14, height: 16.0, radiusX: 14, radiusY: 14 };
+        const mtnPeaks = [
+            { cx: 6, cy: 14, h: 16.0, rx: 14, ry: 14 },
+            { cx: 2, cy: 11, h: 11.0, rx: 9, ry: 8 },
+            { cx: 11, cy: 12, h: 9.5, rx: 7, ry: 7 },
+            { cx: -2, cy: 16, h: 7.0, rx: 8, ry: 6 },
+            { cx: 13, cy: 17, h: 6.5, rx: 6, ry: 5 },
+            { cx: 5, cy: 8, h: 5.0, rx: 5, ry: 4 },
+        ];
 
         function mountainHeight(px, py) {
-            const dx = (px - mtn.cx) / mtn.radiusX;
-            const dy = (py - mtn.cy) / mtn.radiusY;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d >= 1) return 0;
-
-            // Main peak — steep and tall
-            let h = Math.pow(1 - d, 2.2) * mtn.height;
-
-            // Ridge details
-            const ridge1 = Math.exp(-Math.pow((py - mtn.cy) - (px - mtn.cx) * 0.3, 2) * 0.3) * 0.5;
-            const ridge2 = Math.exp(-Math.pow((py - mtn.cy) + (px - mtn.cx) * 0.5, 2) * 0.2) * 0.3;
-            h += (ridge1 + ridge2) * (1 - d);
-
-            // Ski trail — sinuous groove carved into the slope
-            const t = (px - (mtn.cx - mtn.radiusX * 0.5)) / (mtn.radiusX * 1.0);
-            if (t > 0 && t < 1) {
-                const trailCenter = mtn.cy + Math.sin(t * Math.PI * 3.5) * 3.0 * t;
-                const distToTrail = Math.abs(py - trailCenter);
-                const trailWidth = 0.4 + t * 0.2;
-                if (distToTrail < trailWidth) {
-                    const carve = (1 - distToTrail / trailWidth);
-                    h -= carve * 0.6 * (1 - d) * Math.min(1, t * 3);
-                }
+            let h = 0;
+            for (let pi = 0; pi < mtnPeaks.length; pi++) {
+                const pk = mtnPeaks[pi];
+                const dx = (px - pk.cx) / pk.rx;
+                const dy = (py - pk.cy) / pk.ry;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d >= 1) continue;
+                const pkH = Math.pow(1 - d, 1.3) * pk.h;
+                if (pkH > h) h = pkH;
             }
 
-            return Math.max(0, h);
+            // Ridge details on main peak for texture
+            const d0 = Math.sqrt(Math.pow((px - mtn.cx) / mtn.radiusX, 2) + Math.pow((py - mtn.cy) / mtn.radiusY, 2));
+            if (d0 < 1) {
+                const ridge1 = Math.exp(-Math.pow((py - mtn.cy) - (px - mtn.cx) * 0.3, 2) * 0.4) * 0.4;
+                const ridge2 = Math.exp(-Math.pow((py - mtn.cy) + (px - mtn.cx) * 0.5, 2) * 0.25) * 0.3;
+                const ridge3 = Math.exp(-Math.pow((py - mtn.cy - 3) - (px - mtn.cx) * 0.1, 2) * 0.5) * 0.25;
+                h += (ridge1 + ridge2 + ridge3) * (1 - d0);
+            }
+
+            return h;
         }
 
         // S-Class heightmap from depth-processed front face
@@ -872,6 +895,20 @@
             const growTarget = (isAbout && mountainRotate > 0.7) ? 1 : 0;
             mountainGrow += (growTarget - mountainGrow) * Math.min(1, dt * 2.0);
 
+            // Crossfade meshes during rotation: hi-res fades out, lo-res fades in
+            const useLoMesh = mountainRotate > 0.5;
+            if (useLoMesh) {
+                terrain.visible = false;
+                terrainLo.visible = true;
+            } else {
+                terrain.visible = true;
+                terrainLo.visible = false;
+            }
+            terrainLo.rotation.x = terrain.rotation.x;
+            terrainLo.rotation.y = terrain.rotation.y;
+            terrainLo.rotation.z = terrain.rotation.z;
+            terrainLo.position.y = terrain.position.y;
+
             // Section progress follows scroll directly
             sectionProgress = sectionTarget;
 
@@ -893,8 +930,8 @@
             const fromState = sectionStates[currentIdx];
             const toState = sectionStates[nextIdx];
             // 90° side view with grid pushed down so camera is above
-            const mtnRx = -1.5;
-            const mtnRy = 0.05;
+            const mtnRx = -Math.PI / 2;
+            const mtnRy = 0;
             const mtnRz = 0;
             const targetRx = lerp(fromState.rx, toState.rx, t);
             const targetRy = lerp(fromState.ry, toState.ry, t);
@@ -903,7 +940,7 @@
             terrain.rotation.y = lerp(targetRy, mtnRy, mountainRotate);
             terrain.rotation.z = lerp(targetRz, mtnRz, mountainRotate);
             // Push grid down so camera stays above when tilted 90°
-            terrain.position.y = lerp(0, -4, mountainRotate);
+            terrain.position.y = lerp(0, -2, mountainRotate);
 
             // Logo fades as user scrolls away or switches tab
             const logoStrength = Math.max(0, 1 - sectionProgress * 1.8) * grow * (1 - mountainRotate);
@@ -952,10 +989,11 @@
             const doSClass = sClassStrength > 0.01;
             const doVan = vanStrength > 0.01 && typeof vanMap !== 'undefined';
             const doEClass = eClassStrength > 0.01 && typeof eClassMap !== 'undefined';
-            const doMtn = mountainGrow > 0.01;
+            const doMtn = mountainGrow > 0.01 && !useLoMesh;
+            const skipHiRes = useLoMesh;
             const pulse = 1 + Math.sin(time * 1.2) * 0.08;
 
-            for (let i = 0; i < vertCount; i++) {
+            if (!skipHiRes) for (let i = 0; i < vertCount; i++) {
                 const bx = basePositions[i * 3];
                 const by = basePositions[i * 3 + 1];
 
@@ -1058,6 +1096,56 @@
             pos.needsUpdate = true;
             col.needsUpdate = true;
 
+            // Low-res mountain mesh (About page)
+            if (useLoMesh) {
+                const posLo = geoLo.attributes.position;
+                const colLo = geoLo.attributes.color;
+
+                // Ski trail: thin S-curve down one side of the mountain
+                // Use parametric approach — no per-vertex segment search
+                // 8s cycle: 0.18/s * 8 = 1.44
+                const skiCycle = (time % 1.44) / 1.44;
+                const skiHead = skiCycle * skiCycle * (3 - 2 * skiCycle);
+
+                // S-trail starts from mountain peak (highest point), down to mesh edge
+                const pathTop = mtn.cy;
+                const pathBot = -18;
+
+                for (let i = 0; i < vertCountLo; i++) {
+                    const bx = basePositionsLo[i * 3];
+                    const by = basePositionsLo[i * 3 + 1];
+                    let brightness = baseBrightness;
+                    let z = Math.sin(bx * 0.25 + time * 0.6) * Math.cos(by * 0.25 + time * 0.5) * 0.03;
+                    if (mountainGrow > 0.01) {
+                        const mtnH = mountainHeight(bx, by);
+                        if (mtnH > 0) {
+                            z += mtnH * mountainGrow * 0.5;
+                            brightness += mtnH * 0.12 * mountainGrow;
+                        }
+
+                        // Continuous S-trail: 6 even turns, from peak to flat
+                        const tApprox = (pathTop - by) / (pathTop - pathBot);
+                        if (tApprox > 0 && tApprox < 1) {
+                            const pathX = mtn.cx - tApprox * 7 + Math.sin(tApprox * Math.PI * 12) * 2.0;
+                            const dx = bx - pathX;
+                            const trailW = 0.15;
+                            if (dx * dx < trailW * trailW) {
+                                const dist = Math.abs(dx);
+                                const edge = 1 - dist / trailW;
+                                if (tApprox < skiHead) {
+                                    const fade = Math.max(0, 1 - (skiHead - tApprox) * 3);
+                                    brightness -= edge * fade * 0.5 * mountainGrow;
+                                }
+                            }
+                        }
+                    }
+                    posLo.setZ(i, z);
+                    colLo.setXYZ(i, baseR * brightness, baseG * brightness, baseB * brightness);
+                }
+                posLo.needsUpdate = true;
+                colLo.needsUpdate = true;
+            }
+
             // Particles
             const pPos = pGeo.attributes.position;
             for (let i = 0; i < particleCount; i++) {
@@ -1137,8 +1225,11 @@
         requestAnimationFrame(animate);
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            const a = window.innerWidth / window.innerHeight;
+            camera.aspect = a;
+            camera.fov = a < 0.7 ? 75 : a < 1 ? 65 : 50;
             camera.updateProjectionMatrix();
+            applyMobileScale(a);
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
     });

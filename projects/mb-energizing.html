@@ -1,56 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energizing App In-Car Design | Siyang Suo</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Energizing 车载舒适应用 | SIYANG SUO</title>
+    <link rel="stylesheet" href="project.css">
 </head>
 <body>
-    <div class="container">
-        <a href="../index.html" class="back-link">← Back to Portfolio</a>
-        
-        <div class="project-hero">
-            <h1>Energizing App In-Car Design</h1>
-            <div class="project-meta">
-                <div class="meta-item"><span class="meta-label">Role:</span><span class="meta-value">Senior HMI Designer</span></div>
-                <div class="meta-item"><span class="meta-label">Company:</span><span class="meta-value">Mercedes-Benz</span></div>
-                <div class="meta-item"><span class="meta-label">Focus:</span><span class="meta-value">Wellness Experience</span></div>
-                <div class="meta-item"><span class="meta-label">Duration:</span><span class="meta-value">2024 — Present</span></div>
+    <a href="../index.html" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background-color: #0a0a0a"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>Mercedes-Benz</span>
+                <span>健康舒适体验</span>
+                <span>2024 — 至今</span>
             </div>
-            <p class="project-overview">Designing the in-car Energizing application that orchestrates multiple vehicle systems — seat massage, climate, ambient lighting, fragrance, and audio — into cohesive wellness programs that adapt to the driver's state and context.</p>
+            <h1>Energizing 车载舒适应用设计</h1>
+            <p class="hero-desc">设计车载 Energizing 应用，协调座椅按摩、空调、氛围灯、香氛、音频等多个车辆子系统，编排为适应驾驶者状态与场景的整体舒适体验方案。</p>
         </div>
-
-        <div class="project-section">
-            <h2>Challenge</h2>
-            <p>How to coordinate 5+ vehicle subsystems (seat, HVAC, lighting, fragrance, audio) into a unified wellness experience that feels natural and non-intrusive? The interface must make complex multi-system orchestration feel simple and personal.</p>
-        </div>
-
-        <div class="project-section">
-            <h2>Approach</h2>
-            <ul class="bullet-list">
-                <li>Defined wellness program archetypes (Vitality, Comfort, Refresh, Calm)</li>
-                <li>Designed visual language for multi-sensory coordination feedback</li>
-                <li>Created adaptive algorithms that respond to time-of-day, weather, driving duration</li>
-                <li>Built customization flows for users to create personal wellness programs</li>
-            </ul>
-        </div>
-
-        <div class="project-section">
-            <h2>Key Deliverables</h2>
-            <ul class="deliverables-list">
-                <li>Energizing app UI design</li>
-                <li>Wellness program framework</li>
-                <li>Multi-system coordination logic</li>
-                <li>Personalization engine UX</li>
-                <li>Real-time feedback visualization</li>
-                <li>Program creation wizard</li>
-            </ul>
-        </div>
-
-        <footer>
-            <p><a href="../index.html">← Back to Portfolio</a></p>
-        </footer>
     </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">背景</span>
+            <div class="question-block">
+                <p>5+ 个子系统——如何协调为统一的舒适体验？</p>
+            </div>
+            <p>如何将座椅、空调、灯光、香氛、音频等多个子系统协调为自然、非侵入式的统一健康体验？界面需要让复杂的多系统编排变得简单且个性化。</p>
+        </div>
+
+        <div class="section">
+            <span class="section-label">设计方法</span>
+            <h2>多感官编排设计</h2>
+            <ul class="approach-list">
+                <li>定义健康体验方案原型（活力、舒适、焕新、平静）</li>
+                <li>设计多感官协调反馈的视觉语言</li>
+                <li>创建自适应算法——响应时间、天气、驾驶时长</li>
+                <li>构建用户自定义健康方案的创建流程</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">交付物</span>
+            <div class="deliverables">
+                <div class="deliverable-item">Energizing 应用 UI 设计</div>
+                <div class="deliverable-item">健康方案体验框架</div>
+                <div class="deliverable-item">多系统协调逻辑</div>
+                <div class="deliverable-item">个性化引擎 UX</div>
+                <div class="deliverable-item">实时反馈可视化</div>
+                <div class="deliverable-item">方案创建向导</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html">← 返回作品集</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY <= hero.offsetHeight) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
 </body>
 </html>

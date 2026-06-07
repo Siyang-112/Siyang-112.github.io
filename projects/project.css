@@ -1,6 +1,5 @@
 /* ================================
    PROJECT DETAIL PAGE
-   Helvetica Neue + PingFang SC, dark luxury theme
    ================================ */
 * {
     margin: 0;
@@ -9,13 +8,14 @@
 }
 
 :root {
-    --bg: #000000;
-    --bg-card: #0a0a0a;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --text-muted: #666666;
-    --border: rgba(255, 255, 255, 0.1);
-    --font: 'Helvetica Neue', 'PingFang SC', -apple-system, sans-serif;
+    --bg: #070708;
+    --bg-card: #0a0a0b;
+    --text-primary: #ece8e1;
+    --text-secondary: #8a857d;
+    --text-muted: #4a4740;
+    --accent: #b8956a;
+    --border: rgba(236, 232, 225, 0.06);
+    --font: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', sans-serif;
 }
 
 body {
@@ -25,7 +25,7 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 15px;
 }
 
@@ -69,7 +69,7 @@ body {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1000px;
+    max-width: 880px;
     margin: 0 auto;
     padding: 0 60px 80px;
     width: 100%;
@@ -80,22 +80,23 @@ body {
     top: 28px;
     left: 40px;
     z-index: 100;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
     backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 8px 16px;
+    background: rgba(10, 10, 11, 0.6);
+    padding: 10px 18px;
     border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
     transition: all 0.3s;
 }
 
 .hero-back:hover {
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+    background: rgba(10, 10, 11, 0.85);
+    border-color: var(--accent);
 }
 
 .hero-meta {
@@ -107,27 +108,26 @@ body {
 
 .hero-meta span {
     font-size: 12px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
 }
 
 .hero h1 {
-    font-size: 44px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 1.2;
-    margin-bottom: 16px;
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+    margin-bottom: 20px;
     max-width: 700px;
 }
 
 .hero-desc {
-    font-size: 17px;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.8;
+    line-height: 2;
     max-width: 600px;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 /* Hero compact (non-image pages) */
@@ -140,13 +140,13 @@ body {
    CONTENT SECTIONS
    ================================ */
 .content {
-    max-width: 1000px;
+    max-width: 880px;
     margin: 0 auto;
     padding: 0 60px;
 }
 
 .section {
-    padding: 80px 0;
+    padding: 72px 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -159,23 +159,23 @@ body {
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--accent);
     margin-bottom: 24px;
 }
 
 .section h2 {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 300;
     margin-bottom: 20px;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.2px;
 }
 
 .section p {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.9;
-    font-weight: 400;
-    max-width: 680px;
+    line-height: 2;
+    font-weight: 300;
+    max-width: 640px;
     margin-bottom: 16px;
 }
 
@@ -185,29 +185,29 @@ body {
 
 .section p strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* Question block */
 .question-block {
-    border-left: 3px solid rgba(255, 255, 255, 0.15);
-    padding-left: 32px;
+    border-left: 2px solid var(--accent);
+    padding-left: 28px;
     margin: 32px 0;
 }
 
 .question-block p {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--text-primary);
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: -0.5px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: -0.2px;
 }
 
 /* Section subtitle (project name under question) */
 .section-subtitle {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
     margin-bottom: 20px;
 }
@@ -218,28 +218,28 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     margin-top: 24px;
 }
 
 .approach-list li {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
     font-size: 15px;
     color: var(--text-secondary);
-    font-weight: 400;
-    line-height: 1.7;
+    font-weight: 300;
+    line-height: 2;
 }
 
 .approach-list li::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: var(--text-muted);
+    background: var(--accent);
     flex-shrink: 0;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 /* Project blocks (for multi-project pages) */
@@ -247,38 +247,67 @@ body {
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 28px 32px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .project-block h3 {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     color: var(--text-primary);
     margin-bottom: 8px;
 }
 
 .project-block p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 2;
     margin-bottom: 0;
+    font-weight: 300;
 }
 
 /* Deliverables grid */
 .deliverables {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
     margin-top: 24px;
 }
 
 .deliverable-item {
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 18px 24px;
-    font-size: 14px;
+    padding: 16px 24px;
+    font-size: 15px;
     color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* Highlights / results grid */
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.highlight-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+}
+
+.highlight-card .number {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.highlight-card .label {
+    font-size: 12px;
     font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
 }
 
 /* Footer */
@@ -288,15 +317,16 @@ body {
 }
 
 .page-footer a {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
     transition: color 0.3s;
 }
 
 .page-footer a:hover {
-    color: var(--text-primary);
+    color: var(--accent);
 }
 
 /* ================================
@@ -305,22 +335,22 @@ body {
 @media (max-width: 1024px) {
     .hero-content { padding: 0 40px 60px; }
     .content { padding: 0 40px; }
-    .hero h1 { font-size: 36px; }
+    .hero h1 { font-size: 32px; }
 }
 
 @media (max-width: 768px) {
     .hero { min-height: 400px; height: 60vh; }
     .hero-compact { height: 50vh; min-height: 320px; }
     .hero h1 { font-size: 26px; }
-    .hero-desc { font-size: 15px; }
+    .hero-desc { font-size: 14px; line-height: 1.9; }
     .hero-content { padding: 0 24px 48px; }
-    .hero-back { top: 16px; left: 16px; font-size: 13px; padding: 6px 12px; }
+    .hero-back { top: 16px; left: 16px; font-size: 11px; padding: 8px 14px; }
     .hero-meta { gap: 12px; }
-    .hero-meta span { font-size: 10px; }
+    .hero-meta span { font-size: 11px; }
     .content { padding: 0 24px; }
     .section { padding: 48px 0; }
-    .section h2 { font-size: 22px; }
-    .section p { font-size: 14px; line-height: 1.8; }
+    .section h2 { font-size: 20px; }
+    .section p { font-size: 14px; line-height: 1.9; }
     .question-block { padding-left: 20px; }
     .question-block p { font-size: 20px; }
     .deliverables { grid-template-columns: 1fr; }
@@ -331,5 +361,5 @@ body {
 @media (max-width: 390px) {
     .hero h1 { font-size: 22px; }
     .question-block p { font-size: 18px; }
-    .section h2 { font-size: 20px; }
+    .section h2 { font-size: 18px; }
 }

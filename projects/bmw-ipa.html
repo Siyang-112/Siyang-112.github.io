@@ -1,49 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMW Intelligent Personal Assistant | Siyang Suo</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>BMW 智能个人助手 | SIYANG SUO</title>
+    <link rel="stylesheet" href="project.css">
 </head>
 <body>
-    <div class="container">
-        <a href="../index.html" class="back-link">← Back to Portfolio</a>
-        
-        <div class="project-hero">
-            <h1>BMW Intelligent Personal Assistant Demo</h1>
-            <div class="project-meta">
-                <div class="meta-item"><span class="meta-label">Role:</span><span class="meta-value">Project Manager</span></div>
-                <div class="meta-item"><span class="meta-label">Company:</span><span class="meta-value">CapsuleTech</span></div>
-                <div class="meta-item"><span class="meta-label">Client:</span><span class="meta-value">BMW Group</span></div>
-                <div class="meta-item"><span class="meta-label">Team:</span><span class="meta-value">4 developers</span></div>
+    <a href="../index.html" class="hero-back">← 返回</a>
+
+    <div class="hero hero-compact">
+        <div class="hero-bg" id="heroBg" style="background-color: #0a0a0a"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span>CapsuleTech</span>
+                <span>BMW Group</span>
+                <span>4 人开发团队</span>
             </div>
-            <p class="project-overview">Managed the development of an intelligent personal assistant demo for BMW Group, coordinating between developers and client stakeholders to deliver an interactive AI assistant demonstration within timeline.</p>
+            <h1>BMW 智能个人助手演示</h1>
+            <p class="hero-desc">管理 BMW 智能个人助手演示项目的开发，协调开发团队与客户方利益相关者，按期交付交互式 AI 助手演示。</p>
         </div>
-
-        <div class="project-section">
-            <h2>Responsibilities</h2>
-            <ul class="bullet-list">
-                <li>Coordinated communication between 4 developers and BMW clients in English</li>
-                <li>Controlled project timeline and deliverable quality</li>
-                <li>Translated client requirements into actionable development tasks</li>
-                <li>Managed stakeholder expectations and progress reporting</li>
-            </ul>
-        </div>
-
-        <div class="project-section">
-            <h2>Key Deliverables</h2>
-            <ul class="deliverables-list">
-                <li>IPA interactive demo</li>
-                <li>Client requirement specs</li>
-                <li>Progress reports</li>
-                <li>Final presentation</li>
-            </ul>
-        </div>
-
-        <footer>
-            <p><a href="../index.html">← Back to Portfolio</a></p>
-        </footer>
     </div>
+
+    <div class="content">
+        <div class="section">
+            <span class="section-label">职责</span>
+            <h2>项目协调与交付</h2>
+            <ul class="approach-list">
+                <li>全英文协调 4 名开发人员与 BMW 客户沟通</li>
+                <li>把控项目时间线与交付物质量</li>
+                <li>将客户需求转化为可执行的开发任务</li>
+                <li>管理利益相关方期望与进度汇报</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="section-label">交付物</span>
+            <div class="deliverables">
+                <div class="deliverable-item">IPA 交互演示</div>
+                <div class="deliverable-item">客户需求规格文档</div>
+                <div class="deliverable-item">项目进度报告</div>
+                <div class="deliverable-item">最终演示方案</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <a href="../index.html">← 返回作品集</a>
+    </footer>
+
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY <= hero.offsetHeight) {
+                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        }, { passive: true });
+    </script>
 </body>
 </html>

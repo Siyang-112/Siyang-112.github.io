@@ -19,8 +19,8 @@
     --accent-glow: rgba(184, 149, 106, 0.04);
     --border: rgba(236, 232, 225, 0.05);
     --border-hover: rgba(184, 149, 106, 0.3);
-    --font-display: Georgia, 'Times New Roman', serif;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', sans-serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-smooth: cubic-bezier(0.4, 0, 0, 1);
     --nav-h: 76px;
@@ -65,8 +65,23 @@ body {
     z-index: 0;
     pointer-events: none;
     opacity: 0.7;
-    -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, black 40%, transparent 100%);
-    mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+@media (max-width: 768px) {
+    #terrainCanvas {
+        opacity: 0.5;
+        -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 30%, transparent 100%);
+        mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 30%, transparent 100%);
+    }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    #terrainCanvas {
+        -webkit-mask-image: radial-gradient(ellipse 100% 85% at 50% 45%, black 25%, transparent 100%);
+        mask-image: radial-gradient(ellipse 100% 85% at 50% 45%, black 25%, transparent 100%);
+    }
 }
 
 
@@ -115,14 +130,14 @@ body {
     background: none;
     border: none;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     color: var(--text-muted);
     padding: 10px 24px;
     border-radius: 100px;
     cursor: pointer;
     transition: all 0.5s var(--ease-out);
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     position: relative;
 }
@@ -163,14 +178,14 @@ body {
     background: none;
     border: none;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     color: var(--text-muted);
     padding: 6px 10px;
     cursor: pointer;
     transition: all 0.4s var(--ease-out);
     letter-spacing: 0.5px;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .lang-btn:hover {
@@ -263,9 +278,8 @@ body {
 }
 
 .index-num {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-style: italic;
+    font-family: var(--font-body);
+    font-size: 12px;
     color: var(--text-muted);
     font-weight: 400;
     transition: all 0.5s var(--ease-out);
@@ -274,8 +288,8 @@ body {
 
 .index-label {
     font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 400;
     color: var(--text-muted);
     white-space: nowrap;
     transition: all 0.5s var(--ease-out);
@@ -315,15 +329,13 @@ body {
 
 .index-item.active .index-num {
     color: var(--accent);
-    font-size: 13px;
     font-weight: 500;
 }
 
 .index-item.active .index-label {
     color: var(--accent-light);
     opacity: 1;
-    font-weight: 400;
-    font-size: 12px;
+    font-weight: 500;
 }
 
 /* ================================
@@ -364,11 +376,11 @@ body {
 .hero-section .section-inner {
     max-width: 760px;
     margin-right: auto;
-    margin-left: 260px;
+    margin-left: 240px;
 }
 
 .hero-statement {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 300;
     color: var(--text-secondary);
     line-height: 2;
@@ -381,16 +393,16 @@ body {
 .hero-statement-cn {
     font-size: 15px;
     color: var(--text-secondary);
-    line-height: 2.1;
+    line-height: 2;
     animation-delay: 0.9s;
 }
 
 .header-label {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin-bottom: 40px;
     display: flex;
     align-items: center;
@@ -409,10 +421,10 @@ body {
 
 .hero-title {
     font-family: var(--font-display);
-    font-size: 72px;
-    font-weight: 300;
-    letter-spacing: -1px;
-    line-height: 1.05;
+    font-size: 64px;
+    font-weight: 200;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
     margin-bottom: 36px;
     color: var(--text-primary);
     opacity: 0;
@@ -426,7 +438,7 @@ body {
     line-height: 2;
     font-weight: 300;
     opacity: 0;
-    animation: fadeUp 1s var(--ease-out) 0.7s forwards;
+    animation: fadeUp 1s var(--ease-out) 0.6s forwards;
 }
 
 @keyframes fadeUp {
@@ -455,8 +467,8 @@ body {
 }
 
 .scroll-hint-text {
-    font-size: 9px;
-    letter-spacing: 3px;
+    font-size: 11px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-muted);
     font-weight: 500;
@@ -535,8 +547,7 @@ body {
 .project-num-large {
     font-family: var(--font-display);
     font-size: clamp(100px, 12vw, 160px);
-    font-weight: 300;
-    font-style: italic;
+    font-weight: 200;
     color: var(--text-muted);
     opacity: 0.15;
     line-height: 1;
@@ -549,36 +560,36 @@ body {
     pointer-events: none;
 }
 
-/* Content area — right side, margin-right 220px as requested */
+/* Content area — right side */
 .project-full-content {
     position: relative;
     z-index: 1;
     margin-left: auto;
-    margin-right: 220px;
+    margin-right: 200px;
     padding: 80px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 720px;
-    width: 60%;
+    max-width: 640px;
+    width: 55%;
 }
 
 .project-question {
     font-family: var(--font-display);
-    font-size: clamp(28px, 3.2vw, 42px);
-    font-weight: 400;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 300;
     color: var(--text-primary);
-    line-height: 1.25;
-    letter-spacing: -0.5px;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
     margin-bottom: 20px;
 }
 
 .project-name {
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
     color: var(--accent);
     margin-bottom: 28px;
-    letter-spacing: 2.5px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -595,14 +606,14 @@ body {
 .project-solution {
     font-size: 15px;
     color: var(--text-secondary);
-    line-height: 2.1;
+    line-height: 2;
     font-weight: 300;
     margin-bottom: 48px;
 }
 
 .project-cta {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--accent-light);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -735,17 +746,16 @@ body {
 
 .exp-card-role {
     font-family: var(--font-display);
-    font-size: 26px;
-    font-weight: 400;
+    font-size: 24px;
+    font-weight: 300;
     color: var(--text-primary);
     margin-bottom: 4px;
 }
 
 .exp-card-company {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-secondary);
     font-weight: 300;
-    letter-spacing: 0.3px;
 }
 
 .exp-card-right {
@@ -756,10 +766,10 @@ body {
 }
 
 .exp-card-date {
-    font-size: 11px;
-    color: var(--text-muted);
+    font-size: 12px;
+    color: var(--text-secondary);
     font-weight: 400;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .project-arrow {
@@ -771,9 +781,9 @@ body {
 }
 
 .exp-card-desc {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.95;
+    line-height: 2;
     font-weight: 300;
     margin-bottom: 20px;
     max-width: 600px;
@@ -786,12 +796,11 @@ body {
 }
 
 .exp-card-tags span {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 12px;
+    color: var(--text-secondary);
     padding: 7px 14px 7px 0;
     font-weight: 400;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
     transition: all 0.4s var(--ease-out);
 }
 
@@ -814,11 +823,11 @@ body {
 
 .about-subtitle {
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 11px;
     color: var(--accent);
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 28px;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -843,9 +852,9 @@ body {
 }
 
 .about-section-title {
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 36px;
@@ -873,16 +882,16 @@ body {
     gap: 0;
     font-size: 15px;
     color: var(--text-primary);
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .contact-label {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-size: 11px;
+    color: var(--text-secondary);
     width: 88px;
     flex-shrink: 0;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -920,10 +929,10 @@ body {
 
 .edu-school {
     font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 400;
+    font-size: 28px;
+    font-weight: 300;
     color: var(--text-primary);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
 }
 
 .edu-degree {
@@ -933,10 +942,9 @@ body {
 }
 
 .edu-detail {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 300;
-    font-style: italic;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 400;
     margin-top: 4px;
 }
 
@@ -947,7 +955,7 @@ body {
 }
 
 .skill-tag {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-secondary);
     padding: 8px 16px 8px 0;
     font-weight: 400;
@@ -1023,6 +1031,9 @@ body {
     .hero-section {
         padding: 0 60px;
     }
+    .hero-section .section-inner {
+        margin-left: 60px;
+    }
     .nav-inner {
         padding: 0 40px;
     }
@@ -1090,6 +1101,7 @@ body {
 
     .hero-section .section-inner {
         max-width: 100%;
+        margin-left: 0;
     }
 
     .project-full {
