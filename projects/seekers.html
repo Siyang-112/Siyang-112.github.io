@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seekers — 项目经理 | SIYANG SUO</title>
+    <title>雪格传媒 — 项目经理 | SIYANG SUO</title>
     <link rel="stylesheet" href="project.css">
 </head>
 <body>
     <a href="../index.html#experience" class="hero-back">← 返回</a>
 
     <div class="hero hero-compact">
-        <div class="hero-bg" id="heroBg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 100%)"></div>
+        <div class="hero-bg" id="heroBg" style="background: linear-gradient(160deg, #0a0a0b 0%, #0c0e0c 100%)"></div>
         <div class="hero-content">
             <div class="hero-meta">
-                <span>Seekers</span>
+                <span>雪格传媒</span>
                 <span>北京</span>
                 <span>2021.06 — 2021.09</span>
             </div>
@@ -23,10 +23,12 @@
     </div>
 
     <div class="content">
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">项目</span>
-            <h2>京东展厅设计与施工</h2>
-            <p>负责京东展厅从概念设计到施工落地的全流程项目管理。协调设计团队、施工方、物料供应商等多方资源，在紧凑周期内保质交付。</p>
+            <a href="jd-exhibition.html" class="project-block">
+                <h3>京东展厅设计与施工</h3>
+                <p>负责京东展厅从概念设计到施工落地的全流程项目管理。协调设计团队、施工方、物料供应商等多方资源，在紧凑周期内保质交付。</p>
+            </a>
             <ul class="approach-list">
                 <li>统筹 3 家供应商的进场时间与施工顺序</li>
                 <li>管控材料采购、质量验收与工期节点</li>
@@ -35,9 +37,8 @@
             </ul>
         </div>
 
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">核心能力</span>
-            <h2>核心能力</h2>
             <div class="deliverables">
                 <div class="deliverable-item">项目时间线管理</div>
                 <div class="deliverable-item">多方供应商协调</div>
@@ -54,13 +55,9 @@
     <script>
         const heroBg = document.getElementById('heroBg');
         const hero = document.querySelector('.hero');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroH = hero.offsetHeight;
-            if (scrollY <= heroH) {
-                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
-            }
-        }, { passive: true });
+        window.addEventListener('scroll', () => { const s = window.scrollY; if (s <= hero.offsetHeight) heroBg.style.transform = `translateY(${s*0.4}px)`; }, { passive: true });
+        const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

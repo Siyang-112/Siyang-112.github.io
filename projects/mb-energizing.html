@@ -3,72 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energizing 车载舒适应用 | SIYANG SUO</title>
+    <title>Energizing 畅心空间 | SIYANG SUO</title>
     <link rel="stylesheet" href="project.css">
 </head>
 <body>
-    <a href="../index.html" class="hero-back">← 返回</a>
-
-    <div class="hero hero-compact">
-        <div class="hero-bg" id="heroBg" style="background-color: #0a0a0a"></div>
+    <a href="../index.html#project-5" class="hero-back" data-i18n="back">← 返回</a>
+    <div class="hero">
+        <div class="hero-bg" id="heroBg" style="background-image: url('../Energizing/Property 1=Energy.png'); background-size: cover; background-position: center"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-meta">
                 <span>Mercedes-Benz</span>
-                <span>健康舒适体验</span>
-                <span>2024 — 至今</span>
+                <span data-i18n="meta_type">多感官健康体验</span>
+                <span>HU / RSE / Ultrascreen / RC</span>
+                <span data-i18n="meta_date">2023 — 至今</span>
             </div>
-            <h1>Energizing 车载舒适应用设计</h1>
-            <p class="hero-desc">设计车载 Energizing 应用，协调座椅按摩、空调、氛围灯、香氛、音频等多个车辆子系统，编排为适应驾驶者状态与场景的整体舒适体验方案。</p>
+            <h1 data-i18n="title">Energizing 畅心空间</h1>
+            <p class="hero-desc" data-i18n="hero_desc">奔驰座舱内的多感官健康程序系统，将视频、音乐、氛围灯、座椅按摩统一编排，围绕用户情绪状态组织成完整的沉浸体验。</p>
         </div>
     </div>
 
     <div class="content">
-        <div class="section">
-            <span class="section-label">背景</span>
+        <div class="section fade-up">
             <div class="question-block">
-                <p>5+ 个子系统——如何协调为统一的舒适体验？</p>
+                <p data-i18n="question">座舱如何从交通工具升格为主动调节身心状态的空间？</p>
             </div>
-            <p>如何将座椅、空调、灯光、香氛、音频等多个子系统协调为自然、非侵入式的统一健康体验？界面需要让复杂的多系统编排变得简单且个性化。</p>
         </div>
 
-        <div class="section">
-            <span class="section-label">设计方法</span>
-            <h2>多感官编排设计</h2>
-            <ul class="approach-list">
-                <li>定义健康体验方案原型（活力、舒适、焕新、平静）</li>
-                <li>设计多感官协调反馈的视觉语言</li>
-                <li>创建自适应算法——响应时间、天气、驾驶时长</li>
-                <li>构建用户自定义健康方案的创建流程</li>
-            </ul>
+        <div class="section fade-up">
+            <span class="section-label" data-i18n="label_bg">背景</span>
+            <p data-i18n="bg_p1">长途驾驶、等待充电、高压通勤后的放松——这些碎片化场景中，用户需要的不是功能堆叠，而是一个能理解情绪状态并主动提供体验的空间。Energizing 覆盖车机主屏（HU）、后排屏幕（RSE/RSU）、超宽屏（Ultrascreen）、远程控制（RC）及手机端，将多感官元素统一编排为完整的健康程序。</p>
         </div>
 
-        <div class="section">
-            <span class="section-label">交付物</span>
+        <div class="section fade-up">
+            <span class="section-label" data-i18n="label_product">产品定义</span>
+            <h2 data-i18n="product_title">情绪驱动的体验选择</h2>
+            <p data-i18n="product_p1">系统提供 Energy、Good Vibes、Focus、Relax、Power Nap、Fresh Breeze、Warm & Cosy、Performance（AMG 专属）等多种健康程序，覆盖从激动到睡眠的全情绪曲线。用户不需要理解底层功能逻辑，只选择"现在想要什么感觉"。</p>
+            <p data-i18n="product_p2">核心能力是 Energizing Coach / Vital Sensing。通过连接智能手表和 Healthkit 获取生物数据（心率、压力、睡眠质量），结合车内摄像头面部识别和座椅压力传感器，系统判断驾驶员当前状态，再结合路况和驾驶时长，通过推荐引擎主动匹配程序——从"用户去找功能"变成"功能来找用户"。</p>
+            <p data-i18n="product_p3">多座位协同是另一个关键特性。HU/RSE 多屏多座位支持独立或联动控制——全车乘员各自享受个性化体验，或同步体验同一个 Program。VAN 车型有专门的座位选择逻辑，支持运行中动态增减座位。</p>
+        </div>
+
+        <div class="img-break fade-up">
+            <video class="section-video" controls playsinline style="width:100%; display:block;">
+                <source src="../Energizing/energizing_glc.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="section fade-up">
+            <span class="section-label" data-i18n="label_highlights">设计亮点</span>
+            <h2 data-i18n="highlights_title">Ultrascreen 全屏沉浸</h2>
+            <p data-i18n="highlights_p1">程序运行时支持全屏动画铺满超宽屏，所有 UI 元素消失只剩下内容本身。控制面板通过手势唤出——最大化沉浸感同时保留可控性。视频画面与车内氛围灯色彩实时呼应，屏幕内容和灯光构成统一的色彩场域，车内空间本身成为内容的延伸。</p>
+        </div>
+
+        <div class="section fade-up">
+            <h2 data-i18n="guidance_title">渐进式引导与克制推荐</h2>
+            <p data-i18n="guidance_p1">Vital Sensing 连接流程将手机授权→手表连接→数据获取拆解为清晰步骤化流程（QR code 扫码授权），解决了早期"同一状态加多次 toast 导致用户迷失"的问题。推荐时机做了克制——不弹窗打断，而是在合适的上下文（如连续驾驶两小时后）以 toast 方式非侵入呈现建议。</p>
+        </div>
+
+        <div class="section fade-up">
+            <h2 data-i18n="cross_title">跨屏一致性</h2>
+            <p data-i18n="cross_p1">从 HU 到 VAN 后排到 RC 到 Ultrascreen，设计语言和交互模式保持统一，同时根据屏幕尺寸和场景适配布局。运行指示器让用户始终清楚程序状态，多座位冲突有明确规则（同程序合并/不同程序替换 + deactivation toast 通知）。</p>
+        </div>
+
+        <div class="section fade-up">
+            <span class="section-label" data-i18n="label_output">产出</span>
             <div class="deliverables">
-                <div class="deliverable-item">Energizing 应用 UI 设计</div>
-                <div class="deliverable-item">健康方案体验框架</div>
-                <div class="deliverable-item">多系统协调逻辑</div>
-                <div class="deliverable-item">个性化引擎 UX</div>
-                <div class="deliverable-item">实时反馈可视化</div>
-                <div class="deliverable-item">方案创建向导</div>
+                <div class="deliverable-item" data-i18n="output_1">Basescreen 程序选择与状态展示</div>
+                <div class="deliverable-item" data-i18n="output_2">Ultrascreen 全屏沉浸交互逻辑</div>
+                <div class="deliverable-item" data-i18n="output_3">Vital Sensing 连接与推荐流程</div>
+                <div class="deliverable-item" data-i18n="output_4">多座位协同与冲突处理规则</div>
+                <div class="deliverable-item" data-i18n="output_5">远程控制启动流程</div>
+                <div class="deliverable-item" data-i18n="output_6">Power Nap 闹钟机制</div>
+                <div class="deliverable-item" data-i18n="output_7">VAN 车型座位选择适配</div>
+                <div class="deliverable-item" data-i18n="output_8">跨屏一致性交互规范</div>
             </div>
         </div>
     </div>
 
     <footer class="page-footer">
-        <a href="../index.html">← 返回作品集</a>
+        <a href="../index.html#project-5" data-i18n="back_list">← 返回作品列表</a>
     </footer>
 
     <script>
         const heroBg = document.getElementById('heroBg');
         const hero = document.querySelector('.hero');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            if (scrollY <= hero.offsetHeight) {
-                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+        window.addEventListener('scroll', () => { const s = window.scrollY; if (s <= hero.offsetHeight) heroBg.style.transform = `translateY(${s*0.4}px)`; }, { passive: true });
+        const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    </script>
+
+    <script>
+        const i18n = {
+            zh: {
+                back: '← 返回',
+                meta_type: '多感官健康体验',
+                meta_date: '2023 — 至今',
+                title: 'Energizing 畅心空间',
+                hero_desc: '奔驰座舱内的多感官健康程序系统，将视频、音乐、氛围灯、座椅按摩统一编排，围绕用户情绪状态组织成完整的沉浸体验。',
+                question: '座舱如何从交通工具升格为主动调节身心状态的空间？',
+                label_bg: '背景',
+                bg_p1: '长途驾驶、等待充电、高压通勤后的放松——这些碎片化场景中，用户需要的不是功能堆叠，而是一个能理解情绪状态并主动提供体验的空间。Energizing 覆盖车机主屏（HU）、后排屏幕（RSE/RSU）、超宽屏（Ultrascreen）、远程控制（RC）及手机端，将多感官元素统一编排为完整的健康程序。',
+                label_product: '产品定义',
+                product_title: '情绪驱动的体验选择',
+                product_p1: '系统提供 Energy、Good Vibes、Focus、Relax、Power Nap、Fresh Breeze、Warm & Cosy、Performance（AMG 专属）等多种健康程序，覆盖从激动到睡眠的全情绪曲线。用户不需要理解底层功能逻辑，只选择"现在想要什么感觉"。',
+                product_p2: '核心能力是 Energizing Coach / Vital Sensing。通过连接智能手表和 Healthkit 获取生物数据（心率、压力、睡眠质量），结合车内摄像头面部识别和座椅压力传感器，系统判断驾驶员当前状态，再结合路况和驾驶时长，通过推荐引擎主动匹配程序——从"用户去找功能"变成"功能来找用户"。',
+                product_p3: '多座位协同是另一个关键特性。HU/RSE 多屏多座位支持独立或联动控制——全车乘员各自享受个性化体验，或同步体验同一个 Program。VAN 车型有专门的座位选择逻辑，支持运行中动态增减座位。',
+                label_highlights: '设计亮点',
+                highlights_title: 'Ultrascreen 全屏沉浸',
+                highlights_p1: '程序运行时支持全屏动画铺满超宽屏，所有 UI 元素消失只剩下内容本身。控制面板通过手势唤出——最大化沉浸感同时保留可控性。视频画面与车内氛围灯色彩实时呼应，屏幕内容和灯光构成统一的色彩场域，车内空间本身成为内容的延伸。',
+                guidance_title: '渐进式引导与克制推荐',
+                guidance_p1: 'Vital Sensing 连接流程将手机授权→手表连接→数据获取拆解为清晰步骤化流程（QR code 扫码授权），解决了早期"同一状态加多次 toast 导致用户迷失"的问题。推荐时机做了克制——不弹窗打断，而是在合适的上下文（如连续驾驶两小时后）以 toast 方式非侵入呈现建议。',
+                cross_title: '跨屏一致性',
+                cross_p1: '从 HU 到 VAN 后排到 RC 到 Ultrascreen，设计语言和交互模式保持统一，同时根据屏幕尺寸和场景适配布局。运行指示器让用户始终清楚程序状态，多座位冲突有明确规则（同程序合并/不同程序替换 + deactivation toast 通知）。',
+                label_output: '产出',
+                output_1: 'Basescreen 程序选择与状态展示',
+                output_2: 'Ultrascreen 全屏沉浸交互逻辑',
+                output_3: 'Vital Sensing 连接与推荐流程',
+                output_4: '多座位协同与冲突处理规则',
+                output_5: '远程控制启动流程',
+                output_6: 'Power Nap 闹钟机制',
+                output_7: 'VAN 车型座位选择适配',
+                output_8: '跨屏一致性交互规范',
+                back_list: '← 返回作品列表'
+            },
+            en: {
+                back: '← Back',
+                meta_type: 'Multi-Sensory Wellness Experience',
+                meta_date: '2023 — Present',
+                title: 'Energizing Comfort Space',
+                hero_desc: 'A multi-sensory wellness program system within the Mercedes-Benz cabin — orchestrating video, music, ambient lighting, and seat massage into cohesive immersive experiences organized around the user\'s emotional state.',
+                question: 'How can a vehicle cabin evolve from a transportation tool into a space that actively regulates well-being?',
+                label_bg: 'Background',
+                bg_p1: 'Long-distance driving, waiting while charging, unwinding after a high-pressure commute — in these fragmented scenarios, users don\'t need feature accumulation; they need a space that understands their emotional state and proactively delivers experiences. Energizing spans the head unit (HU), rear screens (RSE/RSU), Ultrascreen, Remote Controller (RC), and mobile, orchestrating multi-sensory elements into complete wellness programs.',
+                label_product: 'Product Definition',
+                product_title: 'Emotion-Driven Experience Selection',
+                product_p1: 'The system offers multiple wellness programs — Energy, Good Vibes, Focus, Relax, Power Nap, Fresh Breeze, Warm & Cosy, Performance (AMG exclusive) — covering the full emotional spectrum from energized to sleep. Users don\'t need to understand underlying function logic; they simply choose "how do I want to feel right now."',
+                product_p2: 'The core capability is Energizing Coach / Vital Sensing. By connecting to smartwatches and HealthKit for biometric data (heart rate, stress, sleep quality), combined with in-cabin camera facial recognition and seat pressure sensors, the system assesses the driver\'s current state. Factoring in road conditions and driving duration, the recommendation engine proactively matches a program — shifting from "users finding features" to "features finding users."',
+                product_p3: 'Multi-seat coordination is another key feature. HU/RSE multi-screen, multi-seat support enables either independent or synchronized control — all occupants enjoy personalized experiences individually, or share the same program simultaneously. VAN models have dedicated seat selection logic supporting dynamic addition and removal of seats during an active session.',
+                label_highlights: 'Design Highlights',
+                highlights_title: 'Ultrascreen Full Immersion',
+                highlights_p1: 'During program playback, full-screen animations fill the ultra-wide display with all UI elements disappearing — only the content remains. The control panel is invoked via gesture — maximizing immersion while preserving controllability. Video visuals and in-cabin ambient lighting colors respond in real-time, with screen content and lighting forming a unified color field where the cabin space itself becomes an extension of the content.',
+                guidance_title: 'Progressive Onboarding & Restrained Recommendations',
+                guidance_p1: 'The Vital Sensing connection flow decomposes phone authorization, watch pairing, and data acquisition into a clear step-by-step process (QR code scan authorization), solving the earlier issue of "multiple toasts in the same state causing user confusion." Recommendation timing is deliberately restrained — no disruptive pop-ups, but non-intrusive toast suggestions presented at appropriate moments (e.g., after two consecutive hours of driving).',
+                cross_title: 'Cross-Screen Consistency',
+                cross_p1: 'From HU to VAN rear cabin to RC to Ultrascreen, design language and interaction patterns remain unified while adapting layout to screen size and context. A running indicator keeps users constantly aware of program status. Multi-seat conflicts follow explicit rules (same program merges / different programs replace with deactivation toast notification).',
+                label_output: 'Deliverables',
+                output_1: 'Basescreen program selection & status display',
+                output_2: 'Ultrascreen full-immersion interaction logic',
+                output_3: 'Vital Sensing connection & recommendation flow',
+                output_4: 'Multi-seat coordination & conflict resolution rules',
+                output_5: 'Remote control launch flow',
+                output_6: 'Power Nap alarm mechanism',
+                output_7: 'VAN model seat selection adaptation',
+                output_8: 'Cross-screen consistency interaction guidelines',
+                back_list: '← Back to Projects'
             }
-        }, { passive: true });
+        };
+
+        (function initLang() {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang') || localStorage.getItem('lang') || 'zh';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        })();
     </script>
 </body>
 </html>

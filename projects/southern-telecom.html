@@ -10,7 +10,7 @@
     <a href="../index.html#experience" class="hero-back">← 返回</a>
 
     <div class="hero hero-compact">
-        <div class="hero-bg" id="heroBg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #2e1a2e 100%)"></div>
+        <div class="hero-bg" id="heroBg" style="background: linear-gradient(160deg, #0a0a0b 0%, #0d0c0f 100%)"></div>
         <div class="hero-content">
             <div class="hero-meta">
                 <span>Southern Telecom</span>
@@ -23,15 +23,14 @@
     </div>
 
     <div class="content">
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">概述</span>
             <h2>品牌数字内容策略</h2>
-            <p>在纽约负责消费电子品牌的数字内容全链路管理——从内容策略制定、视觉素材生产到多平台分发与效果追踪。直接面向北美市场用户，通过数据驱动内容迭代。</p>
+            <p>在纽约负责消费电子品牌的数字内容全链路管理，从内容策略制定、视觉素材生产到多平台分发与效果追踪。直接面向北美市场用户，通过数据驱动内容迭代。</p>
         </div>
 
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">核心职责</span>
-            <h2>核心职责</h2>
             <ul class="approach-list">
                 <li>制定品牌内容策略与发布日历</li>
                 <li>管理产品视觉素材拍摄与后期制作</li>
@@ -41,9 +40,8 @@
             </ul>
         </div>
 
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">核心能力</span>
-            <h2>核心能力</h2>
             <div class="deliverables">
                 <div class="deliverable-item">数字内容策略</div>
                 <div class="deliverable-item">品牌视觉管理</div>
@@ -62,13 +60,9 @@
     <script>
         const heroBg = document.getElementById('heroBg');
         const hero = document.querySelector('.hero');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroH = hero.offsetHeight;
-            if (scrollY <= heroH) {
-                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
-            }
-        }, { passive: true });
+        window.addEventListener('scroll', () => { const s = window.scrollY; if (s <= hero.offsetHeight) heroBg.style.transform = `translateY(${s*0.4}px)`; }, { passive: true });
+        const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

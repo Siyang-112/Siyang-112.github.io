@@ -6,6 +6,12 @@
     <title>SIYANG SUO — HMI Designer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+    <link rel="preload" href="fonts/Outfit-Thin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
+    <link rel="preload" href="sclass_heightmap_b64.js?t=20260605" as="script">
+    <link rel="preload" href="eclass_heightmap_b64.js?t=20260605" as="script">
+    <link rel="preload" href="van_hmap_b64.js?t=20260605" as="script">
+    <link rel="preload" href="newglc_hmap_b64.js?t=20260618" as="script">
     <script>
     function decodeHeightmap(obj) {
         const bin = atob(obj.b64);
@@ -14,7 +20,7 @@
         obj.data = data;
         delete obj.b64;
     }
-    var sClassMap, eClassMap, vanMap, glcMap;
+    var sClassMap, eClassMap, vanMap, newGlcMap;
     function loadScript(url) {
         return new Promise(function(resolve) {
             var s = document.createElement('script');
@@ -28,7 +34,7 @@
         loadScript('sclass_heightmap_b64.js?t=20260605').then(function(){ decodeHeightmap(sClassMap); }),
         loadScript('eclass_heightmap_b64.js?t=20260605').then(function(){ decodeHeightmap(eClassMap); }),
         loadScript('van_hmap_b64.js?t=20260605').then(function(){ decodeHeightmap(vanMap); }),
-        loadScript('glc_hmap_b64.js?t=20260605').then(function(){ decodeHeightmap(glcMap); }),
+        loadScript('newglc_hmap_b64.js?t=20260618').then(function(){ decodeHeightmap(newGlcMap); }),
     ]);
     </script>
 </head>
@@ -66,39 +72,39 @@
                 <div class="index-items">
                     <button class="index-item active" data-section="0">
                         <span class="index-marker">
-                            <span class="index-num">—</span>
+                            <span class="index-num">00</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_overview">概览</span>
+                        <span class="index-label" data-i18n="idx_overview">引言</span>
                     </button>
                     <button class="index-item" data-section="1">
                         <span class="index-marker">
                             <span class="index-num">01</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_01">座舱 · 中国</span>
+                        <span class="index-label" data-i18n="idx_01">E-Class · CHN</span>
                     </button>
                     <button class="index-item" data-section="2">
                         <span class="index-marker">
                             <span class="index-num">02</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_02">畅心醒神</span>
+                        <span class="index-label" data-i18n="idx_02">New GLC · CHN</span>
                     </button>
                     <button class="index-item" data-section="3">
                         <span class="index-marker">
                             <span class="index-num">03</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_03">后排娱乐</span>
+                        <span class="index-label" data-i18n="idx_03">VLE 后排</span>
                     </button>
                     <button class="index-item" data-section="4">
                         <span class="index-marker">
                             <span class="index-num">04</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_04">影院屏幕</span>
+                        <span class="index-label" data-i18n="idx_04">S-Class 后排</span>
                     </button>
                     <button class="index-item" data-section="5">
                         <span class="index-marker">
                             <span class="index-num">05</span>
                         </span>
-                        <span class="index-label" data-i18n="idx_05">车机 · 中国</span>
+                        <span class="index-label" data-i18n="idx_05">Energizing</span>
                     </button>
                 </div>
             </aside>
@@ -122,14 +128,14 @@
                     </div>
                 </section>
 
-                <!-- Project 01 -->
+                <!-- Project 01: E-Class 首代中国独立车机 -->
                 <section class="fullpage-section project-section" data-index="1" id="project-1">
-                    <a href="projects/mb-cabin-chn.html" class="project-full">
+                    <a href="projects/mb-mpv-rear.html" class="project-full">
                         <span class="project-num-large">01</span>
                         <div class="project-full-content">
-                            <h3 class="project-question" data-i18n="p01_q">当全球设计遇到本土用户——<br>下一代座舱该如何定义？</h3>
-                            <p class="project-name" data-i18n="p01_name">新一代智能座舱 — C-Class / GLC / EQB · 中国市场</p>
-                            <p class="project-solution" data-i18n="p01_desc">定义新一代车身车型在中国市场的用户体验，主要负责舒适性相关功能。在保持全球品牌一致性的前提下，为 C-Class、GLC、EQB 平台打造情感差异化且本土适配的座舱交互。</p>
+                            <h3 class="project-question" data-i18n="p01_q">HMI设计中，如何平衡品牌基因与本土市场</h3>
+                            <p class="project-name" data-i18n="p01_name">中国首代车机系统，CHN</p>
+                            <p class="project-solution" data-i18n="p01_desc">奔驰第一代为中国市场独立定义的车机系统，覆盖入口架构到舒适性体验的完整本土化方案，适配 14.4 寸和 11.9 寸双尺寸。</p>
                             <span class="project-cta" data-i18n="cta">查看项目 <span class="cta-arrow">→</span></span>
                         </div>
                     </a>
@@ -141,14 +147,14 @@
                     </div>
                 </section>
 
-                <!-- Project 02 -->
+                <!-- Project 02: Electric GLC 纯电GLC中国车机 -->
                 <section class="fullpage-section project-section" data-index="2" id="project-2">
-                    <a href="projects/mb-hmi-optimization.html" class="project-full">
+                    <a href="projects/mb-cabin-chn.html" class="project-full">
                         <span class="project-num-large">02</span>
                         <div class="project-full-content">
-                            <h3 class="project-question" data-i18n="p02_q">车能感知你的状态——<br>并在你开口之前做出回应吗？</h3>
-                            <p class="project-name" data-i18n="p02_name">畅心醒神 Energizing — S-Class / EQS / E-Class · 全球</p>
-                            <p class="project-solution" data-i18n="p02_desc">设计 Energizing 核心功能——座椅、氛围灯、按摩、音乐与生命体征感知，通过行为模型（紧张/活跃/愉悦/放松/睡眠）统一编排。将"用户找功能"翻转为"场景送功能"，实现情境化舒适模式。</p>
+                            <h3 class="project-question" data-i18n="p02_q">AI时代下，如何体现奔驰以人为本的坚守</h3>
+                            <p class="project-name" data-i18n="p02_name">纯电 GLC 中国车机系统，CHN</p>
+                            <p class="project-solution" data-i18n="p02_desc">基于长联屏硬件为中国市场定义系统级交互，包含屏幕分区逻辑、AI 统一容器、个性化主页切换。</p>
                             <span class="project-cta" data-i18n="cta">查看项目 <span class="cta-arrow">→</span></span>
                         </div>
                     </a>
@@ -160,14 +166,14 @@
                     </div>
                 </section>
 
-                <!-- Project 03 -->
+                <!-- Project 03: VLE 后排娱乐系统 -->
                 <section class="fullpage-section project-section" data-index="3" id="project-3">
-                    <a href="projects/mb-cabin-global.html" class="project-full">
+                    <a href="projects/mb-rear-entertainment.html" class="project-full">
                         <span class="project-num-large">03</span>
                         <div class="project-full-content">
-                            <h3 class="project-question" data-i18n="p03_q">后排的一个遥控器——<br>能简单到取代触屏吗？</h3>
-                            <p class="project-name" data-i18n="p03_name">后排娱乐系统与遥控器 — S-Class / EQS · 全球</p>
-                            <p class="project-solution" data-i18n="p03_desc">设计后排乘客的 RSE 数字电视体验及遥控器交互。在手持与触控困难场景下定义直觉化操控方式，基于数据驱动的用户体验覆盖娱乐、游戏与会议等使用场景。</p>
+                            <h3 class="project-question" data-i18n="p03_q">后排乘客的细分场景，如何满足场景化需求</h3>
+                            <p class="project-name" data-i18n="p03_name">VLE后排娱乐舒适系统，Global</p>
+                            <p class="project-solution" data-i18n="p03_desc">一块 32:9 超宽屏，默认共享观影的移动影院，分屏时各自独立的私人空间。</p>
                             <span class="project-cta" data-i18n="cta">查看项目 <span class="cta-arrow">→</span></span>
                         </div>
                     </a>
@@ -179,14 +185,14 @@
                     </div>
                 </section>
 
-                <!-- Project 04 -->
+                <!-- Project 04: S-Class 后排娱乐系统 -->
                 <section class="fullpage-section project-section" data-index="4" id="project-4">
-                    <a href="projects/mb-rear-entertainment.html" class="project-full">
+                    <a href="projects/mb-cabin-global.html" class="project-full">
                         <span class="project-num-large">04</span>
                         <div class="project-full-content">
-                            <h3 class="project-question" data-i18n="p04_q">32 英寸、多位乘客——<br>车上的影院体验意味着什么？</h3>
-                            <p class="project-name" data-i18n="p04_name">32" 影院屏幕与后排系统 — V-Class / VAN.EA</p>
-                            <p class="project-solution" data-i18n="p04_desc">为下一代 VAN.EA 定义 32 英寸影院屏幕体验。设计宽屏显示器的交互规范、遥控器 UX 适配，以及单人与多人乘坐场景下的沉浸式娱乐方案。</p>
+                            <h3 class="project-question" data-i18n="p04_q">如何创造出极致舒适的乘车体验</h3>
+                            <p class="project-name" data-i18n="p04_name">S-Class 后排娱乐与遥控系统，Global</p>
+                            <p class="project-solution" data-i18n="p04_desc">两块独立屏幕、每位乘客专属终端，为 S 级后排 VIP 打造从舒适到氛围的完整私属体验。</p>
                             <span class="project-cta" data-i18n="cta">查看项目 <span class="cta-arrow">→</span></span>
                         </div>
                     </a>
@@ -198,14 +204,14 @@
                     </div>
                 </section>
 
-                <!-- Project 05 -->
+                <!-- Project 05: Energizing -->
                 <section class="fullpage-section project-section" data-index="5" id="project-5">
-                    <a href="projects/mb-mpv-rear.html" class="project-full">
+                    <a href="projects/mb-energizing.html" class="project-full">
                         <span class="project-num-large">05</span>
                         <div class="project-full-content">
-                            <h3 class="project-question" data-i18n="p05_q">第一代中国独立车机——<br>如何从零定义本土系统？</h3>
-                            <p class="project-name" data-i18n="p05_name">首代中国独立车机系统 — 300 / GLC / C-Class</p>
-                            <p class="project-solution" data-i18n="p05_desc">定义奔驰首代中国地区独立车机系统。在全车域能力开放下行代释放的产品定义与 AI/UX 设计，负责直 30 年模型设计，为中国用户打造从底层架构到交互体验的完整本土化车机方案。</p>
+                            <h3 class="project-question" data-i18n="p05_q">Beyond Driving，如何实现人机共情</h3>
+                            <p class="project-name" data-i18n="p05_name">Energizing 畅心空间，Global</p>
+                            <p class="project-solution" data-i18n="p05_desc">将视频、音乐、氛围灯、座椅按摩统一编排，围绕情绪状态组织沉浸体验，覆盖 HU、RSE、Ultrascreen、RC 多触点。</p>
                             <span class="project-cta" data-i18n="cta">查看项目 <span class="cta-arrow">→</span></span>
                         </div>
                     </a>
@@ -219,10 +225,30 @@
             <header class="page-header">
                 <p class="header-label" data-i18n="exp_label">职业经历 · 2020 — 2023</p>
                 <h1 class="hero-title" style="font-size:56px;" data-i18n="exp_title">经历</h1>
-                <p class="header-desc" data-i18n="exp_desc">跨学科设计与项目管理背景——从智能座舱到数字内容，始终聚焦用户体验与产品交付。</p>
+                <p class="header-desc" data-i18n="exp_desc">跨学科设计与项目管理背景，从智能座舱到数字内容，始终聚焦用户体验与产品交付。</p>
             </header>
 
             <div class="exp-list">
+                <a href="https://fivesteps.framer.website" target="_blank" class="exp-card fade-in">
+                    <div class="exp-card-header">
+                        <div>
+                            <h3 class="exp-card-role" data-i18n="exp0_role">联合创始人</h3>
+                            <p class="exp-card-company" data-i18n="exp0_company">Fivesteps（五步走设计工作室），北京</p>
+                        </div>
+                        <div class="exp-card-right">
+                            <span class="exp-card-date" data-i18n="exp0_date">2024.11 — 至今</span>
+                            <span class="project-arrow">→</span>
+                        </div>
+                    </div>
+                    <p class="exp-card-desc" data-i18n="exp0_desc">为时尚与电商客户提供从用户研究到高保真交付的全链路 UX 设计服务，专注小程序、响应式网站与 App。</p>
+                    <div class="exp-card-tags">
+                        <span data-i18n="exp0_t1">品牌设计</span>
+                        <span data-i18n="exp0_t2">网站设计</span>
+                        <span data-i18n="exp0_t3">App 设计</span>
+                        <span data-i18n="exp0_t4">产品定义</span>
+                    </div>
+                </a>
+
                 <a href="projects/capsuletech.html" class="exp-card fade-in">
                     <div class="exp-card-header">
                         <div>
@@ -234,12 +260,12 @@
                             <span class="project-arrow">→</span>
                         </div>
                     </div>
-                    <p class="exp-card-desc" data-i18n="exp1_desc">智能座舱 HMI 设计——多模态、多终端复杂场景设计与技术支持。</p>
+                    <p class="exp-card-desc" data-i18n="exp1_desc">智能座舱 HMI 设计，多模态、多终端复杂场景设计与技术支持。</p>
                     <div class="exp-card-tags">
-                        <span>北汽越野 (B41V) HMI</span>
-                        <span>语音个人助理</span>
-                        <span>BMW iDrive 9 HMI Demo</span>
-                        <span>BMW 智能个人助理</span>
+                        <span data-i18n="exp1_t1">北汽越野 (B41V) HMI</span>
+                        <span data-i18n="exp1_t2">语音个人助理</span>
+                        <span data-i18n="exp1_t3">BMW iDrive 9 HMI Demo</span>
+                        <span data-i18n="exp1_t4">BMW 智能个人助理</span>
                     </div>
                 </a>
 
@@ -247,7 +273,7 @@
                     <div class="exp-card-header">
                         <div>
                             <h3 class="exp-card-role" data-i18n="exp2_role">项目经理</h3>
-                            <p class="exp-card-company" data-i18n="exp2_company">觅迹，北京</p>
+                            <p class="exp-card-company" data-i18n="exp2_company">雪格传媒，北京</p>
                         </div>
                         <div class="exp-card-right">
                             <span class="exp-card-date">2021.06 — 2021.09</span>
@@ -256,7 +282,7 @@
                     </div>
                     <p class="exp-card-desc" data-i18n="exp2_desc">展览设计与施工项目管理，协调多供应商交付。</p>
                     <div class="exp-card-tags">
-                        <span>京东展厅设计与施工</span>
+                        <span data-i18n="exp2_t1">京东展厅设计与施工</span>
                     </div>
                 </a>
 
@@ -271,9 +297,9 @@
                             <span class="project-arrow">→</span>
                         </div>
                     </div>
-                    <p class="exp-card-desc" data-i18n="exp3_desc">品牌数字内容策略——从策划到执行的全链路管理。</p>
+                    <p class="exp-card-desc" data-i18n="exp3_desc">品牌数字内容策略，从策划到执行的全链路管理。</p>
                     <div class="exp-card-tags">
-                        <span>品牌数字内容策略</span>
+                        <span data-i18n="exp3_t1">品牌数字内容策略</span>
                     </div>
                 </a>
             </div>
@@ -318,18 +344,18 @@
                 <div class="about-section fade-in">
                     <h3 class="about-section-title" data-i18n="about_skills">技能专长</h3>
                     <div class="skills-grid">
-                        <span class="skill-tag">HMI / UX 设计</span>
-                        <span class="skill-tag">智能座舱</span>
-                        <span class="skill-tag">交互设计</span>
-                        <span class="skill-tag">Protopie / Figma</span>
-                        <span class="skill-tag">用户研究</span>
-                        <span class="skill-tag">数据分析</span>
-                        <span class="skill-tag">项目管理</span>
-                        <span class="skill-tag">3D / 渲染</span>
-                        <span class="skill-tag">多模态设计</span>
-                        <span class="skill-tag">语音交互 VUI</span>
-                        <span class="skill-tag">英语（流利）</span>
-                        <span class="skill-tag">中文（母语）</span>
+                        <span class="skill-tag" data-i18n="skill_1">HMI / UX 设计</span>
+                        <span class="skill-tag" data-i18n="skill_2">智能座舱</span>
+                        <span class="skill-tag" data-i18n="skill_3">交互设计</span>
+                        <span class="skill-tag" data-i18n="skill_4">Protopie / Figma</span>
+                        <span class="skill-tag" data-i18n="skill_5">用户研究</span>
+                        <span class="skill-tag" data-i18n="skill_6">数据分析</span>
+                        <span class="skill-tag" data-i18n="skill_7">项目管理</span>
+                        <span class="skill-tag" data-i18n="skill_8">3D / 渲染</span>
+                        <span class="skill-tag" data-i18n="skill_9">多模态设计</span>
+                        <span class="skill-tag" data-i18n="skill_10">语音交互 VUI</span>
+                        <span class="skill-tag" data-i18n="skill_11">英语（流利）</span>
+                        <span class="skill-tag" data-i18n="skill_12">中文（母语）</span>
                     </div>
                 </div>
             </div>
@@ -345,80 +371,101 @@
                 scroll: '下滑',
                 hero_label: '梅赛德斯-奔驰 · 高级 HMI 设计师 · 北京',
                 hero_desc: '7年汽车、智驾、交互、前沿科技与产品设计及项目管理经验。擅长分析数据与用户痛点获取行业洞察，带领团队利用多种工具将创意可视化。',
-                idx_overview: '概览', idx_01: '座舱 · 中国', idx_02: '畅心醒神', idx_03: '后排娱乐', idx_04: '影院屏幕', idx_05: '车机 · 中国',
-                p01_q: '当全球设计遇到本土用户——<br>下一代座舱该如何定义？',
-                p01_name: '新一代智能座舱 — C-Class / GLC / EQB · 中国市场',
-                p01_desc: '定义新一代车身车型在中国市场的用户体验，主要负责舒适性相关功能。在保持全球品牌一致性的前提下，为 C-Class、GLC、EQB 平台打造情感差异化且本土适配的座舱交互。',
-                p02_q: '车能感知你的状态——<br>并在你开口之前做出回应吗？',
-                p02_name: '畅心醒神 Energizing — S-Class / EQS / E-Class · 全球',
-                p02_desc: '设计 Energizing 核心功能——座椅、氛围灯、按摩、音乐与生命体征感知，通过行为模型（紧张/活跃/愉悦/放松/睡眠）统一编排。将"用户找功能"翻转为"场景送功能"，实现情境化舒适模式。',
-                p03_q: '后排的一个遥控器——<br>能简单到取代触屏吗？',
-                p03_name: '后排娱乐系统与遥控器 — S-Class / EQS · 全球',
-                p03_desc: '设计后排乘客的 RSE 数字电视体验及遥控器交互。在手持与触控困难场景下定义直觉化操控方式，基于数据驱动的用户体验覆盖娱乐、游戏与会议等使用场景。',
-                p04_q: '32 英寸、多位乘客——<br>车上的影院体验意味着什么？',
-                p04_name: '32" 影院屏幕与后排系统 — V-Class / VAN.EA',
-                p04_desc: '为下一代 VAN.EA 定义 32 英寸影院屏幕体验。设计宽屏显示器的交互规范、遥控器 UX 适配，以及单人与多人乘坐场景下的沉浸式娱乐方案。',
-                p05_q: '第一代中国独立车机——<br>如何从零定义本土系统？',
-                p05_name: '首代中国独立车机系统 — 300 / GLC / C-Class',
-                p05_desc: '定义奔驰首代中国地区独立车机系统。在全车域能力开放下行代释放的产品定义与 AI/UX 设计，负责直 30 年模型设计，为中国用户打造从底层架构到交互体验的完整本土化车机方案。',
+                idx_overview: '引言', idx_01: 'E-Class · CHN', idx_02: 'New GLC · CHN', idx_03: 'VLE 后排', idx_04: 'S-Class 后排', idx_05: 'Energizing',
+                p01_q: 'HMI设计中，如何平衡品牌基因与本土市场',
+                p01_name: '中国首代车机系统，CHN',
+                p01_desc: '奔驰第一代为中国市场独立定义的车机系统，覆盖入口架构到舒适性体验的完整本土化方案，适配 14.4 寸和 11.9 寸双尺寸。',
+                p02_q: 'AI时代下，如何体现奔驰以人为本的坚守',
+                p02_name: '纯电 GLC 中国车机系统，CHN',
+                p02_desc: '基于长联屏硬件为中国市场定义系统级交互，包含屏幕分区逻辑、AI 统一容器、个性化主页切换。',
+                p03_q: '后排乘客的细分场景，如何满足场景化需求',
+                p03_name: 'VLE后排娱乐舒适系统，Global',
+                p03_desc: '一块 32:9 超宽屏，默认共享观影的移动影院，分屏时各自独立的私人空间。',
+                p04_q: '如何创造出极致舒适的乘车体验',
+                p04_name: 'S-Class 后排娱乐与遥控系统，Global',
+                p04_desc: '两块独立屏幕、每位乘客专属终端，为 S 级后排 VIP 打造从舒适到氛围的完整私属体验。',
+                p05_q: 'Beyond Driving，如何实现人机共情',
+                p05_name: 'Energizing 畅心空间，Global',
+                p05_desc: '将视频、音乐、氛围灯、座椅按摩统一编排，围绕情绪状态组织沉浸体验，覆盖 HU、RSE、Ultrascreen、RC 多触点。',
                 cta: '查看项目 <span class="cta-arrow">→</span>',
                 exp_label: '职业经历 · 2020 — 2023', exp_title: '经历',
-                exp_desc: '跨学科设计与项目管理背景——从智能座舱到数字内容，始终聚焦用户体验与产品交付。',
+                exp_desc: '跨学科设计与项目管理背景，从智能座舱到数字内容，始终聚焦用户体验与产品交付。',
+                exp0_role: '联合创始人', exp0_company: 'Fivesteps（五步走设计工作室），北京',
+                exp0_date: '2024.11 — 至今',
+                exp0_desc: '为时尚与电商客户提供从用户研究到高保真交付的全链路 UX 设计服务，专注小程序、响应式网站与 App。',
+                exp0_t1: '品牌设计', exp0_t2: '网站设计', exp0_t3: 'App 设计', exp0_t4: '产品定义',
                 exp1_role: '汽车 HMI 设计师', exp1_company: '胶囊科技，上海',
-                exp1_desc: '智能座舱 HMI 设计——多模态、多终端复杂场景设计与技术支持。',
-                exp2_role: '项目经理', exp2_company: '觅迹，北京',
+                exp1_desc: '智能座舱 HMI 设计，多模态、多终端复杂场景设计与技术支持。',
+                exp1_t1: '北汽越野 (B41V) HMI', exp1_t2: '语音个人助理', exp1_t3: 'BMW iDrive 9 HMI Demo', exp1_t4: 'BMW 智能个人助理',
+                exp2_role: '项目经理', exp2_company: '雪格传媒，北京',
                 exp2_desc: '展览设计与施工项目管理，协调多供应商交付。',
+                exp2_t1: '京东展厅设计与施工',
                 exp3_role: '数字内容经理', exp3_company: 'Southern Telecom，纽约',
-                exp3_desc: '品牌数字内容策略——从策划到执行的全链路管理。',
+                exp3_desc: '品牌数字内容策略，从策划到执行的全链路管理。',
+                exp3_t1: '品牌数字内容策略',
                 about_subtitle: '高级 HMI 设计师 & 项目经理',
                 about_desc: '7年汽车、智驾、交互、前沿科技与产品设计及项目管理经验。擅长分析数据与用户痛点获取行业洞察，带领团队利用多种工具将创意可视化。',
                 about_contact: '联系方式', about_edu: '教育背景', about_skills: '技能专长',
                 label_phone: '电话', label_email: '邮箱', label_location: '所在地',
                 location_value: '中国，北京',
                 edu_school: '普瑞特艺术学院 Pratt Institute', edu_degree: '工业设计 艺术学士', edu_detail: '美国纽约 — 荣誉学生奖学金',
+                skill_1: 'HMI / UX 设计', skill_2: '智能座舱', skill_3: '交互设计', skill_4: 'Protopie / Figma',
+                skill_5: '用户研究', skill_6: '数据分析', skill_7: '项目管理', skill_8: '3D / 渲染',
+                skill_9: '多模态设计', skill_10: '语音交互 VUI', skill_11: '英语（流利）', skill_12: '中文（母语）',
             },
             en: {
                 nav_exp: 'Experience', nav_about: 'About',
                 scroll: 'Scroll',
                 hero_label: 'Mercedes-Benz · Senior HMI Designer · Beijing',
                 hero_desc: '7 years of experience in design and project management across automobiles, smart driving, interaction, cutting-edge technology, and product design. Skilled at analyzing data and user pain points to gain industry insights, and leading teams to visualize ideas with various tools.',
-                idx_overview: 'Overview', idx_01: 'Cabin · CHN', idx_02: 'Energizing', idx_03: 'RSE', idx_04: 'Cinema', idx_05: 'OS · CHN',
-                p01_q: 'When Global Design Meets Local Users —<br>How to Define the Next-Gen Cabin?',
-                p01_name: 'Next-Gen Intelligent Cabin — C-Class / GLC / EQB · China',
-                p01_desc: 'Defined the user experience for new-generation body models in China, focusing on comfort features. Delivering emotionally differentiated and culturally relevant cabin interactions while maintaining global brand integrity across C-Class, GLC, and EQB platforms.',
-                p02_q: 'Can a Car Sense How You Feel —<br>and Respond Before You Ask?',
-                p02_name: 'Energizing & Comfort — S-Class / EQS / E-Class · Global',
-                p02_desc: 'Designed the Energizing core features — seat, ambient light, massage, music, and vital sensing — orchestrated through behavioral models (tense/active/happy/relaxed/sleep). Flipped from "user seeks function" to "context delivers function" with scene-based comfort modes.',
-                p03_q: 'A Remote in the Rear Seat —<br>Simple Enough to Replace Touch?',
-                p03_name: 'Rear Seat Entertainment & Remote — S-Class / EQS · Global',
-                p03_desc: 'Designed the RSE digital TV experience and remote controller for rear passengers. Defined intuitive control in hand-held and touch-difficult scenarios, focusing on data-driven UX for entertainment, gaming, and conferencing use cases.',
-                p04_q: '32 Inches, Multiple Passengers —<br>What Does Cinema on Wheels Mean?',
-                p04_name: '32" Cinema Screen & RSE — V-Class / VAN.EA',
-                p04_desc: 'Defined the 32-inch cinema screen experience for next-gen VAN.EA. Designed interaction specs for the widescreen display, remote controller UX adaptation, and immersive entertainment for single and multi-passenger scenarios.',
-                p05_q: 'First Independent China OS —<br>How to Define a Local System from Scratch?',
-                p05_name: '1st-Gen China Independent OS — 300 / GLC / C-Class',
-                p05_desc: 'Defined Mercedes-Benz\'s first independent infotainment system for China. Product definition and AI/UX design under full-vehicle-domain capability release, responsible for 30-year model design — building a complete localized system from architecture to interaction.',
+                idx_overview: 'Intro', idx_01: 'E-Class · CHN', idx_02: 'New GLC · CHN', idx_03: 'VLE RSE', idx_04: 'S-Class RSE', idx_05: 'Energizing',
+                p01_q: 'In HMI Design, Balancing Brand DNA with Local Markets',
+                p01_name: '1st-Gen China Infotainment, CHN',
+                p01_desc: 'Mercedes-Benz\'s first independently defined infotainment for the China market, covering full localization from entry architecture to comfort experience, adapted for 14.4" and 11.9" dual screens.',
+                p02_q: 'In the AI Era, Human-Centric by Design',
+                p02_name: 'Electric GLC Infotainment, CHN',
+                p02_desc: 'Defining system-level interaction for China based on connected-screen hardware, including screen partition logic, unified AI container, and personalized home switching.',
+                p03_q: 'Rear Passengers, Scenario-Based Needs',
+                p03_name: '32" Cinema Screen & Rear Entertainment, Global',
+                p03_desc: 'A 32:9 ultra-wide screen, shared cinema by default, independent private spaces when split.',
+                p04_q: 'Crafting the Ultimate Comfort Experience',
+                p04_name: 'S-Class Rear Entertainment & Remote, Global',
+                p04_desc: 'Two independent screens, one dedicated terminal per passenger, delivering a complete private experience from comfort to ambiance for S-Class rear VIPs.',
+                p05_q: 'Beyond Driving, Achieving Human-Machine Empathy',
+                p05_name: 'Energizing Comfort, Global',
+                p05_desc: 'Orchestrating video, music, ambient lighting, and seat massage around emotional states, spanning HU, RSE, Ultrascreen, and RC touchpoints.',
                 cta: 'View Project <span class="cta-arrow">→</span>',
                 exp_label: 'Career · 2020 — 2023', exp_title: 'Experience',
-                exp_desc: 'Cross-disciplinary background in design and project management — from intelligent cabins to digital content, consistently focused on user experience and product delivery.',
+                exp_desc: 'Cross-disciplinary background in design and project management, from intelligent cabins to digital content, consistently focused on user experience and product delivery.',
+                exp0_role: 'Co-founder', exp0_company: 'Fivesteps Design Studio, Beijing',
+                exp0_date: '2024.11 — Present',
+                exp0_desc: 'Full-cycle UX design for fashion and e-commerce clients, from user research to hi-fi delivery, specializing in mini-programs, responsive web, and apps.',
+                exp0_t1: 'Brand Design', exp0_t2: 'Web Design', exp0_t3: 'App Design', exp0_t4: 'Product Definition',
                 exp1_role: 'Automobile HMI Designer', exp1_company: 'CapsuleTech, Shanghai',
-                exp1_desc: 'Smart cabin HMI design — multi-modal, multi-terminal complex scenario design and technical support.',
-                exp2_role: 'Project Manager', exp2_company: 'Seekers, Beijing',
+                exp1_desc: 'Smart cabin HMI design, multi-modal and multi-terminal complex scenario design and technical support.',
+                exp1_t1: 'BAIC Off-Road (B41V) HMI', exp1_t2: 'Voice Personal Assistant', exp1_t3: 'BMW iDrive 9 HMI Demo', exp1_t4: 'BMW Intelligent Personal Assistant',
+                exp2_role: 'Project Manager', exp2_company: 'Seekers Media, Beijing',
                 exp2_desc: 'Exhibition design and construction project management, coordinating multi-vendor delivery.',
+                exp2_t1: 'JD.com Showroom Design & Build',
                 exp3_role: 'Digital Content Manager', exp3_company: 'Southern Telecom, New York',
-                exp3_desc: 'Brand digital content strategy — full-cycle management from planning to execution.',
+                exp3_desc: 'Brand digital content strategy, full-cycle management from planning to execution.',
+                exp3_t1: 'Brand Digital Content Strategy',
                 about_subtitle: 'Senior HMI Designer & Project Manager',
                 about_desc: '7 years of experience in design and project management across automobiles, smart driving, interaction, cutting-edge technology, and product design. Skilled at analyzing data and user pain points to gain industry insights, and leading teams to visualize ideas with various tools.',
                 about_contact: 'Contact', about_edu: 'Education', about_skills: 'Skills & Expertise',
                 label_phone: 'Phone', label_email: 'Email', label_location: 'Location',
                 location_value: 'Beijing, China',
-                edu_school: 'Pratt Institute', edu_degree: 'Bachelor of Fine Arts in Industrial Design', edu_detail: 'New York, USA — Honor with student fellowship',
+                edu_school: 'Pratt Institute', edu_degree: 'Bachelor of Fine Arts in Industrial Design', edu_detail: 'New York, USA — Honors Student Fellowship',
+                skill_1: 'HMI / UX Design', skill_2: 'Smart Cabin', skill_3: 'Interaction Design', skill_4: 'Protopie / Figma',
+                skill_5: 'User Research', skill_6: 'Data Analysis', skill_7: 'Project Management', skill_8: '3D / Rendering',
+                skill_9: 'Multi-Modal Design', skill_10: 'Voice UI (VUI)', skill_11: 'English (Fluent)', skill_12: 'Chinese (Native)',
             }
         };
 
         let currentLang = 'zh';
         function setLang(lang) {
             currentLang = lang;
+            localStorage.setItem('lang', lang);
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
@@ -434,6 +481,13 @@
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.addEventListener('click', () => setLang(btn.dataset.lang));
         });
+
+        // Apply saved language on load
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const savedLang = params.get('lang') || localStorage.getItem('lang') || 'zh';
+            if (savedLang !== 'zh') setLang(savedLang);
+        })();
 
         // Tab switching
         let currentTab = 'projects';
@@ -762,36 +816,34 @@
             return val * 1.2;
         }
 
-        // GLC interior heightmap for section 01
-        const glcCarCx = 0, glcCarCy = 0;
-        const glcMapW = 16.5, glcMapH = 9.2; // 1200:669 aspect, 85% of v3
+        // New GLC front-face heightmap for section 02
+        const newGlcCx = 0, newGlcCy = 0;
+        const newGlcMapW = 11.0, newGlcMapH = 9.86; // 1200:1076 aspect preserved
 
-        function glcHeight(px, py, cx, cy) {
+        function newGlcHeight(px, py, cx, cy) {
             const x = px - cx;
             const y = py - cy;
-
-            const u = (x / glcMapW + 0.5);
-            const v = (0.5 - y / glcMapH);
-
+            const u = (x / newGlcMapW + 0.5);
+            const v = (0.5 - y / newGlcMapH);
             if (u <= 0 || u >= 1 || v <= 0 || v >= 1) return 0;
+            if (typeof newGlcMap === 'undefined') return 0;
 
-            const fx = u * (glcMap.w - 1);
-            const fy = v * (glcMap.h - 1);
+            const fx = u * (newGlcMap.w - 1);
+            const fy = v * (newGlcMap.h - 1);
             const ix = Math.floor(fx);
             const iy = Math.floor(fy);
             const dx = fx - ix;
             const dy = fy - iy;
-            const ix1 = Math.min(ix + 1, glcMap.w - 1);
-            const iy1 = Math.min(iy + 1, glcMap.h - 1);
+            const ix1 = Math.min(ix + 1, newGlcMap.w - 1);
+            const iy1 = Math.min(iy + 1, newGlcMap.h - 1);
 
-            const v00 = glcMap.data[iy * glcMap.w + ix];
-            const v10 = glcMap.data[iy * glcMap.w + ix1];
-            const v01 = glcMap.data[iy1 * glcMap.w + ix];
-            const v11 = glcMap.data[iy1 * glcMap.w + ix1];
+            const v00 = newGlcMap.data[iy * newGlcMap.w + ix];
+            const v10 = newGlcMap.data[iy * newGlcMap.w + ix1];
+            const v01 = newGlcMap.data[iy1 * newGlcMap.w + ix];
+            const v11 = newGlcMap.data[iy1 * newGlcMap.w + ix1];
 
             const val = v00 * (1-dx) * (1-dy) + v10 * dx * (1-dy)
                       + v01 * (1-dx) * dy + v11 * dx * dy;
-
             return val * 1.2;
         }
 
@@ -812,7 +864,7 @@
         }
         pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
         const pMat = new THREE.PointsMaterial({
-            color: 0xd4b896,
+            color: 0xdcc4a4,
             size: 0.015,
             transparent: true,
             opacity: 0.35,
@@ -846,11 +898,11 @@
         // Section orientations — gentle tilts to keep grid filling viewport
         const sectionStates = [
             { rx: 0, ry: 0, rz: 0 },
-            { rx: -0.25, ry: 0.1, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
+            { rx: 0, ry: 0, rz: 0 },
             { rx: -0.35, ry: 0.15, rz: 0 },
-            { rx: 0, ry: 0, rz: 0 },
-            { rx: 0, ry: 0, rz: 0 },
-            { rx: 0, ry: 0, rz: 0 },
         ];
 
         function lerp(a, b, t) { return a + (b - a) * t; }
@@ -870,6 +922,7 @@
         // Smooth transition between tabs — two phases: rotate then grow
         let mountainRotate = 0;
         let mountainGrow = 0;
+        let experienceFade = 0;
 
         let time = 0;
         let lastTimestamp = performance.now();
@@ -889,6 +942,8 @@
 
             // Two-phase animation: rotate first, then grow mountain
             const isAbout = currentTab === 'about' ? 1 : 0;
+            const isExp = currentTab === 'experience' ? 1 : 0;
+            experienceFade += (isExp - experienceFade) * Math.min(1, dt * 2.5);
             // Phase 1: rotation (fast)
             mountainRotate += (isAbout - mountainRotate) * Math.min(1, dt * 3.0);
             // Phase 2: mountain grows only after rotation mostly done
@@ -943,30 +998,31 @@
             terrain.position.y = lerp(0, -2, mountainRotate);
 
             // Logo fades as user scrolls away or switches tab
-            const logoStrength = Math.max(0, 1 - sectionProgress * 1.8) * grow * (1 - mountainRotate);
+            const tabFade = (1 - mountainRotate) * (1 - experienceFade);
+            const logoStrength = Math.max(0, 1 - sectionProgress * 1.8) * grow * tabFade;
 
-            // GLC interior appears at section 1
-            const glcTarget = Math.max(0, 1 - Math.abs(sectionProgress - 1) * 1.8);
-            const glcStrength = glcTarget * modelGrow * (1 - mountainRotate);
+            // E-Class appears at section 1 (E-Class CHN car system)
+            const eClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 1) * 1.8);
+            const eClassStrength = eClassTarget * modelGrow * tabFade;
 
-            // Energy flow appears at section 2 — loops from pre-computed data
-            const energyTarget = Math.max(0, 1 - Math.abs(sectionProgress - 2) * 1.8);
-            const energyStrength = energyTarget * modelGrow * (1 - mountainRotate);
+            // New GLC front-face appears at section 2 (Electric GLC)
+            const newGlcTarget = Math.max(0, 1 - Math.abs(sectionProgress - 2) * 1.8);
+            const newGlcStrength = newGlcTarget * modelGrow * tabFade;
+
+            // VAN side profile appears at section 3 (VAN VLE)
+            const vanTarget = Math.max(0, 1 - Math.abs(sectionProgress - 3) * 1.8);
+            const vanStrength = vanTarget * modelGrow * tabFade;
+
+            // S-Class appears at section 4, fades in/out smoothly
+            const sClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 4) * 2.5);
+            const sClassStrength = sClassTarget * modelGrow * tabFade;
+
+            // Energy flow appears at section 5 — loops from pre-computed data
+            const energyTarget = Math.max(0, 1 - Math.abs(sectionProgress - 5) * 1.8);
+            const energyStrength = energyTarget * modelGrow * tabFade;
             const inEnergy = energyStrength > 0.01;
             wasInEnergy = inEnergy;
             if (inEnergy) energyTime = (energyTime + dt * 0.7) % E_LOOP;
-
-            // S-Class appears at section 3, fades in/out smoothly
-            const sClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 3) * 2.5);
-            const sClassStrength = sClassTarget * modelGrow * (1 - mountainRotate);
-
-            // VAN side profile appears at section 4
-            const vanTarget = Math.max(0, 1 - Math.abs(sectionProgress - 4) * 1.8);
-            const vanStrength = vanTarget * modelGrow * (1 - mountainRotate);
-
-            // E-Class side profile appears at section 5 (last project)
-            const eClassTarget = Math.max(0, 1 - Math.abs(sectionProgress - 5) * 1.8);
-            const eClassStrength = eClassTarget * modelGrow * (1 - mountainRotate);
 
             // Pre-compute energy per-frame values (integer speeds for seamless loop)
             let eWaveOff1 = 0, eWaveOff2 = 0, eWaveOff3 = 0;
@@ -984,7 +1040,7 @@
             const pos = geo.attributes.position;
             const col = geo.attributes.color;
             const doLogo = logoStrength > 0.01;
-            const doGlc = glcStrength > 0.01 && typeof glcMap !== 'undefined';
+            const doNewGlc = newGlcStrength > 0.01 && typeof newGlcMap !== 'undefined';
             const doEnergy = energyStrength > 0.01;
             const doSClass = sClassStrength > 0.01;
             const doVan = vanStrength > 0.01 && typeof vanMap !== 'undefined';
@@ -1009,12 +1065,12 @@
                     }
                 }
 
-                // GLC interior
-                if (doGlc) {
-                    const gc = glcHeight(bx, by, glcCarCx, glcCarCy);
+                // New GLC front-face
+                if (doNewGlc) {
+                    const gc = newGlcHeight(bx, by, newGlcCx, newGlcCy);
                     if (gc > 0) {
-                        totalZ += gc * 0.5 * glcStrength;
-                        brightness += gc * 0.2 * glcStrength;
+                        totalZ += gc * 0.5 * newGlcStrength;
+                        brightness += gc * 0.2 * newGlcStrength;
                     }
                 }
 
@@ -1089,6 +1145,12 @@
 
                 // Subtle ambient wave
                 totalZ += Math.sin(bx * 0.25 + time * 0.6) * Math.cos(by * 0.25 + time * 0.5) * 0.03;
+
+                // Experience tab: flatten mesh, uniform color
+                if (experienceFade > 0.01) {
+                    totalZ *= (1 - experienceFade);
+                    brightness = baseBrightness;
+                }
 
                 pos.setZ(i, totalZ);
                 col.setXYZ(i, baseR * brightness, baseG * brightness, baseB * brightness);
@@ -1175,8 +1237,8 @@
                 if (h > 0) { z += h * 0.3; br += h * 0.2; }
 
                 // Heightmap paths
-                if (typeof glcMap !== 'undefined') {
-                    const gc = glcHeight(bx, by, 0, 0);
+                if (typeof newGlcMap !== 'undefined') {
+                    const gc = newGlcHeight(bx, by, 0, 0);
                     if (gc > 0) { z += gc * 0.1; br += gc * 0.1; }
                 }
                 if (typeof sClassMap !== 'undefined') {

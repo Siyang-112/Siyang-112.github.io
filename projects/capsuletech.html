@@ -10,7 +10,7 @@
     <a href="../index.html#experience" class="hero-back">← 返回</a>
 
     <div class="hero hero-compact">
-        <div class="hero-bg" id="heroBg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)"></div>
+        <div class="hero-bg" id="heroBg" style="background: linear-gradient(160deg, #0a0a0b 0%, #0e0d12 100%)"></div>
         <div class="hero-content">
             <div class="hero-meta">
                 <span>CapsuleTech</span>
@@ -23,39 +23,37 @@
     </div>
 
     <div class="content">
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">概述</span>
-            <p>在 CapsuleTech 期间，主导多个汽车品牌的 HMI 项目，覆盖从概念设计到量产落地的全流程。核心挑战是在不同品牌调性下，为复杂的多模态交互场景找到<strong>一致且优雅</strong>的设计方案。</p>
+            <p>在 CapsuleTech 期间，主导多个汽车品牌的 HMI 项目，覆盖从概念设计到量产落地的全流程。核心挑战是在不同品牌调性下，为复杂的多模态交互场景找到一致且优雅的设计方案。</p>
         </div>
 
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">项目经历</span>
-            <h2>项目经历</h2>
 
-            <div class="project-block">
+            <a href="baic-offroad.html" class="project-block">
                 <h3>北汽越野车 (B41V) HMI</h3>
                 <p>为北汽越野车定义全新座舱交互系统，针对越野场景设计差异化的信息架构与视觉语言。</p>
-            </div>
+            </a>
 
-            <div class="project-block">
+            <a href="vpa-durant.html" class="project-block">
                 <h3>语音个人助手 — VUI 设计</h3>
                 <p>设计语音个人助手的 VUI 系统，定义唤醒、对话、反馈的全链路语音交互体验。</p>
-            </div>
+            </a>
 
-            <div class="project-block">
+            <a href="bmw-idrive9.html" class="project-block">
                 <h3>BMW iDrive 9 HMI 演示</h3>
                 <p>为 BMW 新一代 iDrive 系统制作高保真概念演示，探索下一代座舱交互范式。</p>
-            </div>
+            </a>
 
-            <div class="project-block">
+            <a href="bmw-ipa.html" class="project-block">
                 <h3>BMW 智能个人助手</h3>
                 <p>定义 BMW 智能助手的交互人格与多模态响应策略，让 AI 助手具备品牌调性。</p>
-            </div>
+            </a>
         </div>
 
-        <div class="section">
+        <div class="section fade-up">
             <span class="section-label">核心能力</span>
-            <h2>核心能力</h2>
             <div class="deliverables">
                 <div class="deliverable-item">多模态交互设计（语音+触控+手势）</div>
                 <div class="deliverable-item">高保真交互原型（ProtoPie / Figma）</div>
@@ -74,13 +72,9 @@
     <script>
         const heroBg = document.getElementById('heroBg');
         const hero = document.querySelector('.hero');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroH = hero.offsetHeight;
-            if (scrollY <= heroH) {
-                heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
-            }
-        }, { passive: true });
+        window.addEventListener('scroll', () => { const s = window.scrollY; if (s <= hero.offsetHeight) heroBg.style.transform = `translateY(${s*0.4}px)`; }, { passive: true });
+        const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
